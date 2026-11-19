@@ -1,0 +1,2 @@
+# IsiqliMentiq
+İşıqlı Məntiq Laboratoriyası
