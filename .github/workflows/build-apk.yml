@@ -23,8 +23,11 @@ jobs:
       - name: Generate Android files
         run: flutter create . --platforms=android
 
-      - name: Disable Release Lint Check
+      - name: Configure Android App Name, Orientation & Lint
         run: |
+          sed -i 's/android:label="[^"]*"/android:label="Super Məntiq"/' android/app/src/main/AndroidManifest.xml
+          sed -i 's/<activity/<activity android:screenOrientation="sensorLandscape"/' android/app/src/main/AndroidManifest.xml
+
           if [ -f android/app/build.gradle.kts ]; then
             printf '\nandroid {\n    lint {\n        checkReleaseBuilds = false\n        abortOnError = false\n    }\n}\n' >> android/app/build.gradle.kts
           elif [ -f android/app/build.gradle ]; then
@@ -34,11 +37,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Generate App Icon
+        run: dart run flutter_launcher_icons
+
       - name: Build Release APK
         run: flutter build apk --release
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: IsiqliMentiq-APK
+          name: SuperMentiq-APK
           path: build/app/outputs/flutter-apk/app-release.apk
