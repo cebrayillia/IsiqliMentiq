@@ -1,7 +1,7 @@
 name: super_logic
 description: Super Məntiq - 50 Səviyyəli Məntiq Cəbri Oyunu
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
