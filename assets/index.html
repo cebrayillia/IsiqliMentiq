@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="screen-orientation" content="landscape">
-<title>Məntiq Macərası — 50 Səviyyəli 2D Piksel Oyun</title>
+<title>Super Məntiq — 50 Səviyyəli 2D Piksel Oyun</title>
 <style>
   :root {
     --bg-dark: #0f172a;
@@ -183,14 +183,40 @@
   }
 
   .title-card {
-    background: rgba(15, 23, 42, 0.93);
+    background: rgba(15, 23, 42, 0.94);
     border: 4px solid var(--accent);
     box-shadow: 0 8px 0 #090d16, 0 0 30px rgba(56, 189, 248, 0.28);
     border-radius: 12px;
-    padding: 16px 24px;
+    padding: 14px 22px;
     text-align: center;
-    max-width: 620px;
-    width: 94%;
+    max-width: 650px;
+    width: 95%;
+  }
+
+  .lang-bar {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .lang-btn {
+    background: #1e293b;
+    color: #cbd5e1;
+    border: 2px solid #475569;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+  .lang-btn.active {
+    background: #0284c7;
+    color: #ffffff;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.45);
   }
 
   .game-logo {
@@ -205,7 +231,7 @@
   .game-sub {
     font-size: clamp(11px, 1.9vw, 13px);
     color: #bae6fd;
-    margin: 0 0 14px 0;
+    margin: 0 0 13px 0;
   }
 
   .menu-buttons {
@@ -216,7 +242,7 @@
   }
 
   .menu-stats {
-    margin-top: 12px;
+    margin-top: 11px;
     font-size: 12px;
     color: var(--muted);
     display: flex;
@@ -233,7 +259,7 @@
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.75);
     width: 96%;
-    max-width: 780px;
+    max-width: 800px;
     max-height: 93dvh;
     display: flex;
     flex-direction: column;
@@ -252,7 +278,7 @@
   }
   .modal-header h2 {
     margin: 0;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--accent);
   }
 
@@ -335,7 +361,7 @@
   /* Shop Grid */
   .shop-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
     gap: 10px;
   }
   .skin-card {
@@ -347,13 +373,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
+    position: relative;
+  }
+  .skin-card.elite {
+    border-color: #a855f7;
+    background: linear-gradient(180deg, #17122b 0%, #0f172a 100%);
   }
   .skin-card.owned { border-color: #38bdf8; }
   .skin-card.equipped {
     border-color: #22c55e;
     background: #0b291a;
     box-shadow: 0 0 12px rgba(34, 197, 94, 0.25);
+  }
+  .skin-tier {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: #7e22ce;
+    color: #fef08a;
   }
   .skin-preview {
     width: 56px;
@@ -364,9 +406,13 @@
     image-rendering: pixelated;
   }
   .skin-name {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 800;
     color: #f8fafc;
+    min-height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .skin-btn {
     width: 100%;
@@ -379,6 +425,7 @@
     cursor: pointer;
   }
   .skin-btn.buy { background: var(--accent); color: #0f172a; }
+  .skin-btn.buy.elite-buy { background: #c084fc; color: #0f172a; }
   .skin-btn.buy.cant { background: #475569; color: #cbd5e1; border-color: #64748b; }
   .skin-btn.equip { background: #38bdf8; color: #0f172a; }
   .skin-btn.active { background: #22c55e; color: #052e16; cursor: default; }
@@ -394,9 +441,9 @@
   /* In-Game HUD */
   #hud {
     position: absolute;
-    top: 6px;
-    left: 8px;
-    right: 8px;
+    top: max(8px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    right: max(12px, env(safe-area-inset-right));
     z-index: 10;
     display: none;
     align-items: center;
@@ -477,63 +524,63 @@
 
   .ctrl-left {
     position: absolute;
-    bottom: 14px;
-    left: 14px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    left: max(16px, env(safe-area-inset-left));
     display: flex;
-    gap: 12px;
+    gap: 16px;
     pointer-events: auto;
   }
   .ctrl-right {
     position: absolute;
-    bottom: 14px;
-    right: 14px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    right: max(16px, env(safe-area-inset-right));
     display: flex;
-    gap: 12px;
+    gap: 14px;
     align-items: flex-end;
     pointer-events: auto;
   }
 
   .t-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 14px;
-    background: rgba(15, 23, 42, 0.62);
-    border: 3px solid rgba(255, 255, 255, 0.55);
+    width: 82px;
+    height: 82px;
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.66);
+    border: 3px solid rgba(255, 255, 255, 0.65);
     color: #fff;
-    font-size: 22px;
+    font-size: 30px;
     font-weight: 900;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 0 rgba(0,0,0,0.45);
+    box-shadow: 0 5px 0 rgba(0,0,0,0.48);
     touch-action: none;
   }
   .t-btn.pressed {
-    background: rgba(56, 189, 248, 0.72);
+    background: rgba(56, 189, 248, 0.78);
     border-color: #fff;
     transform: translateY(2px);
   }
   .t-btn.jump {
-    width: 68px;
-    height: 68px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
-    background: rgba(34, 197, 94, 0.68);
+    background: rgba(34, 197, 94, 0.72);
     border-color: #bbf7d0;
-    font-size: 13px;
+    font-size: 15px;
     flex-direction: column;
-    line-height: 1.1;
+    line-height: 1.15;
   }
   .t-btn.jump.pressed { background: rgba(34, 197, 94, 0.95); }
   .t-btn.action {
-    width: 62px;
-    height: 62px;
+    width: 78px;
+    height: 78px;
     border-radius: 50%;
-    background: rgba(250, 204, 21, 0.85);
+    background: rgba(250, 204, 21, 0.88);
     border-color: #fef08a;
     color: #0f172a;
-    font-size: 11px;
+    font-size: 13px;
     flex-direction: column;
-    line-height: 1.1;
+    line-height: 1.15;
     display: none;
     animation: pulseAct 0.9s infinite;
   }
@@ -544,7 +591,7 @@
     50% { transform: scale(1.07); box-shadow: 0 0 14px 4px rgba(250,204,21,0.55); }
   }
 
-  /* Logic Circuit Modal — Mobile Landscape Optimized */
+  /* Logic Circuit Modal */
   #puzzleModal { z-index: 30; }
   .puzzle-box {
     background: #0f172a;
@@ -674,7 +721,7 @@
   }
   .puzzle-feedback.err {
     color: #fca5a5;
-    background: rgba(239, 68, 68, 0.16);
+    background: rgba(239, 68, 68, 0.22);
     padding: 5px 8px;
     border: 1px solid #ef4444;
   }
@@ -727,14 +774,18 @@
     border-radius: 12px;
     padding: 18px 24px;
     text-align: center;
-    max-width: 440px;
+    max-width: 460px;
     width: 92%;
     box-shadow: 0 10px 30px rgba(0,0,0,0.8);
   }
   .result-card.lose { border-color: var(--red); }
+  .result-card.shock-lose {
+    border-color: #38bdf8;
+    box-shadow: 0 0 35px rgba(56, 189, 248, 0.55);
+  }
   .result-card h2 {
     margin: 0 0 8px 0;
-    font-size: 21px;
+    font-size: 20px;
     color: var(--accent);
   }
   .result-card p {
@@ -744,11 +795,13 @@
   }
 
   @media (max-height: 430px) {
-    .title-card { padding: 11px 16px; }
-    .game-sub { margin-bottom: 9px; }
+    .title-card { padding: 10px 15px; }
+    .lang-bar { margin-bottom: 6px; }
+    .game-sub { margin-bottom: 8px; }
     .px-btn { padding: 6px 11px; font-size: 11px; }
-    .t-btn { width: 52px; height: 52px; font-size: 18px; }
-    .t-btn.jump { width: 58px; height: 58px; font-size: 11px; }
+    .t-btn { width: 74px; height: 74px; font-size: 26px; border-radius: 16px; }
+    .t-btn.jump { width: 82px; height: 82px; font-size: 14px; }
+    .t-btn.action { width: 72px; height: 72px; font-size: 12px; }
     .puzzle-body { padding: 5px 10px; gap: 5px; }
     .circuit-stage svg { max-height: 158px; }
     .puzzle-prompt { font-size: 12px; }
@@ -762,11 +815,11 @@
 <!-- Portrait Warning for Mobile APK -->
 <div id="rotateOverlay" class="active-lock">
   <div class="phone-icon"></div>
-  <h2 style="color:#facc15; margin:0 0 8px 0;">Telefonu Yan Çevirin</h2>
-  <p style="color:#cbd5e1; max-width:300px; font-size:14px; line-height:1.45; margin:0 0 18px 0;">
-    <b>Məntiq Macərası</b> üfüqi (landscape) rejimdə oynanılır. Zəhmət olmasa ekranı yan çevirin.
+  <h2 id="rotTitle" style="color:#facc15; margin:0 0 8px 0;">Telefonu Yan Çevirin</h2>
+  <p id="rotDesc" style="color:#cbd5e1; max-width:300px; font-size:14px; line-height:1.45; margin:0 0 18px 0;">
+    <b>Super Məntiq</b> üfüqi (landscape) rejimdə oynanılır. Zəhmət olmasa ekranı yan çevirin.
   </p>
-  <button class="px-btn sm dark" onclick="document.getElementById('rotateOverlay').classList.remove('active-lock')">Yenə də aç</button>
+  <button class="px-btn sm dark" id="rotBtn" onclick="document.getElementById('rotateOverlay').classList.remove('active-lock')">Yenə də aç</button>
 </div>
 
 <div id="app">
@@ -781,9 +834,10 @@
       <div class="hud-pill gates" id="hudGates">⚡ 0/0</div>
     </div>
     <div class="hud-group">
-      <button class="hud-icon-btn" onclick="restartLevel()" title="Yenidən başla">↻</button>
-      <button class="hud-icon-btn" onclick="toggleSound()" id="hudSoundBtn" title="Səs">🔊</button>
-      <button class="hud-icon-btn" onclick="returnToMenu()" title="Menyu">☰</button>
+      <button class="hud-icon-btn" onclick="toggleFullscreen()" id="hudFsBtn">⛶</button>
+      <button class="hud-icon-btn" onclick="restartLevel()" id="hudRestartBtn">↻</button>
+      <button class="hud-icon-btn" onclick="toggleSound()" id="hudSoundBtn">🔊</button>
+      <button class="hud-icon-btn" onclick="returnToMenu()" id="hudMenuBtn">☰</button>
     </div>
   </div>
 
@@ -793,40 +847,46 @@
   <!-- Mobile Touch Controls -->
   <div id="touchControls">
     <div class="ctrl-left">
-      <button class="t-btn" id="btnLeft" aria-label="Sol">◀</button>
-      <button class="t-btn" id="btnRight" aria-label="Sağ">▶</button>
+      <button class="t-btn" id="btnLeft" aria-label="Left">◀</button>
+      <button class="t-btn" id="btnRight" aria-label="Right">▶</button>
     </div>
     <div class="ctrl-right">
-      <button class="t-btn action" id="btnAction" aria-label="Sxemi Aç">⚡<br>SXEM</button>
-      <button class="t-btn jump" id="btnJump" aria-label="Tullan">▲<br>TULLAN</button>
+      <button class="t-btn action" id="btnAction">⚡<br>SXEM</button>
+      <button class="t-btn jump" id="btnJump">▲<br>TULLAN</button>
     </div>
   </div>
 
   <!-- START SCREEN -->
   <div id="startScreen" class="screen visible">
     <div class="title-card">
-      <h1 class="game-logo">MƏNTİQ MACƏRASI</h1>
-      <p class="game-sub">50 Səviyyəli Məntiq Cəbri və Elektrik Dövrələri Piksel Oyunu</p>
+      <div class="lang-bar">
+        <button class="lang-btn" data-lang="az" onclick="setLang('az')">🇦🇿 AZ</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧 EN</button>
+        <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">🇹🇷 TR</button>
+        <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">🇷🇺 RU</button>
+      </div>
+      <h1 class="game-logo" id="uiLogo">SUPER MƏNTİQ</h1>
+      <p class="game-sub" id="uiSub">50 Səviyyəli Məntiq Cəbri və Elektrik Dövrələri Piksel Oyunu</p>
       <div class="menu-buttons">
         <button class="px-btn green" id="btnPlayMain" onclick="startFromMenu()">▶ OYUNA BAŞLA</button>
-        <button class="px-btn purple" onclick="openShop()">👕 MAĞAZA (10 GEYİM)</button>
-        <button class="px-btn blue" onclick="openLevelSelect()">🗺 SƏVİYYƏLƏR (50)</button>
-        <button class="px-btn dark" onclick="openRef()">⚡ MƏNTİQ ELEMENTLƏRİ</button>
+        <button class="px-btn purple" id="btnShopMain" onclick="openShop()">👕 MAĞAZA (20 GEYİM)</button>
+        <button class="px-btn blue" id="btnLevelsMain" onclick="openLevelSelect()">🗺 SƏVİYYƏLƏR (50)</button>
+        <button class="px-btn dark" id="btnRefMain" onclick="openRef()">⚡ MƏNTİQ ELEMENTLƏRİ</button>
         <button class="px-btn dark" id="menuSoundBtn" onclick="toggleSound()">🔊 SƏS: AÇIQ</button>
       </div>
       <div class="menu-stats">
-        <span>Açılmış səviyyə: <b id="statUnlocked">1</b>/50</span>
-        <span>Qızıl: <b id="statCoins">0</b> 🪙</span>
-        <span>Geyim: <b id="statSkin">Əsas Qəhrəman</b></span>
+        <span><span id="lblUnlocked">Açılmış səviyyə</span>: <b id="statUnlocked">1</b>/50</span>
+        <span><span id="lblCoins">Qızıl</span>: <b id="statCoins">0</b> 🪙</span>
+        <span><span id="lblSkin">Geyim</span>: <b id="statSkin">Əsas Qəhrəman</b></span>
       </div>
     </div>
   </div>
 
-  <!-- SHOP SCREEN (10 PURCHASABLE SKINS x 1000 COINS) -->
+  <!-- SHOP SCREEN (20 PURCHASABLE SKINS: 10 x 1000 + 10 x 2000 COINS) -->
   <div id="shopScreen" class="screen">
     <div class="modal-box">
       <div class="modal-header">
-        <h2>👕 GEYİM MAĞAZASI (HƏR GEYİM 1000 🪙)</h2>
+        <h2 id="uiShopTitle">👕 GEYİM MAĞAZASI (1000 🪙 &amp; 2000 🪙)</h2>
         <div style="display:flex; gap:8px; align-items:center;">
           <div class="hud-pill gold" id="shopCoins">🪙 0</div>
           <button class="px-btn sm red" onclick="closeSubScreen('shopScreen')">✕</button>
@@ -839,11 +899,11 @@
     </div>
   </div>
 
-  <!-- LEVEL SELECT SCREEN (NO TEACHER MODE) -->
+  <!-- LEVEL SELECT SCREEN -->
   <div id="levelSelectScreen" class="screen">
     <div class="modal-box">
       <div class="modal-header">
-        <h2>🗺 SƏVİYYƏ SEÇİMİ (1 – 50)</h2>
+        <h2 id="uiLvlSelectTitle">🗺 SƏVİYYƏ SEÇİMİ (1 – 50)</h2>
         <button class="px-btn sm red" onclick="closeSubScreen('levelSelectScreen')">✕</button>
       </div>
       <div class="modal-body">
@@ -853,17 +913,17 @@
     </div>
   </div>
 
-  <!-- LOGIC ELEMENTS GUIDE (EXACT SYMBOLS FROM REFERENCE IMAGE) -->
+  <!-- LOGIC ELEMENTS GUIDE -->
   <div id="refScreen" class="screen">
     <div class="modal-box">
       <div class="modal-header">
-        <h2>⚡ MƏNTİQ ELEMENTLƏRİ</h2>
-        <button class="px-btn sm red" onclick="closeSubScreen('refScreen')">✕ BAĞLA</button>
+        <h2 id="uiRefTitle">⚡ MƏNTİQ ELEMENTLƏRİ</h2>
+        <button class="px-btn sm red" id="uiRefClose" onclick="closeSubScreen('refScreen')">✕ BAĞLA</button>
       </div>
       <div class="modal-body">
         <div class="ref-grid">
           <div class="ref-card">
-            <div class="ref-tag">İnvertor</div>
+            <div class="ref-tag" id="refNotTag">İnvertor</div>
             <svg viewBox="0 0 140 80" width="130" height="74">
               <line x1="15" y1="40" x2="46" y2="40" stroke="#e2e8f0" stroke-width="3"/>
               <text x="20" y="32" fill="#facc15" font-size="14" font-weight="bold">A</text>
@@ -871,12 +931,10 @@
               <circle cx="96" cy="40" r="6" fill="#0f172a" stroke="#fff" stroke-width="3"/>
               <line x1="102" y1="40" x2="128" y2="40" stroke="#e2e8f0" stroke-width="3"/>
             </svg>
-            <div style="color:#cbd5e1; margin-top:4px;">
-              <b>İnversiya (DEYİL)</b><br>Siqnalı əksinə çevirir:<br><code>0 → 1</code> , <code>1 → 0</code>
-            </div>
+            <div id="refNotDesc" style="color:#cbd5e1; margin-top:4px;"></div>
           </div>
           <div class="ref-card">
-            <div class="ref-tag">Dizyunktor</div>
+            <div class="ref-tag" id="refOrTag">Dizyunktor</div>
             <svg viewBox="0 0 140 80" width="130" height="74">
               <line x1="15" y1="26" x2="46" y2="26" stroke="#e2e8f0" stroke-width="3"/>
               <line x1="15" y1="54" x2="46" y2="54" stroke="#e2e8f0" stroke-width="3"/>
@@ -886,12 +944,10 @@
               <text x="77" y="34" fill="#fff" font-size="18" font-weight="bold" text-anchor="middle">1</text>
               <line x1="90" y1="40" x2="128" y2="40" stroke="#e2e8f0" stroke-width="3"/>
             </svg>
-            <div style="color:#cbd5e1; margin-top:4px;">
-              <b>Dizyunksiya (VƏ YA)</b><br>Ən azı bir giriş <code>1</code> olarsa çıxış <code>1</code> olur.<br><code>0|0=0</code>, qalanı <code>1</code>
-            </div>
+            <div id="refOrDesc" style="color:#cbd5e1; margin-top:4px;"></div>
           </div>
           <div class="ref-card">
-            <div class="ref-tag">Konyunktor</div>
+            <div class="ref-tag" id="refAndTag">Konyunktor</div>
             <svg viewBox="0 0 140 80" width="130" height="74">
               <line x1="15" y1="26" x2="46" y2="26" stroke="#e2e8f0" stroke-width="3"/>
               <line x1="15" y1="54" x2="46" y2="54" stroke="#e2e8f0" stroke-width="3"/>
@@ -901,16 +957,14 @@
               <text x="76" y="34" fill="#fff" font-size="18" font-weight="bold" text-anchor="middle">&amp;</text>
               <line x1="90" y1="40" x2="128" y2="40" stroke="#e2e8f0" stroke-width="3"/>
             </svg>
-            <div style="color:#cbd5e1; margin-top:4px;">
-              <b>Konyunksiya (VƏ)</b><br>Yalnız hər iki giriş <code>1</code> olarsa çıxış <code>1</code> olur.<br><code>1&amp;1=1</code>, qalanı <code>0</code>
-            </div>
+            <div id="refAndDesc" style="color:#cbd5e1; margin-top:4px;"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- LOGIC CIRCUIT PUZZLE MODAL (NO HINTS) -->
+  <!-- LOGIC CIRCUIT PUZZLE MODAL -->
   <div id="puzzleModal" class="screen">
     <div class="puzzle-box">
       <div class="puzzle-top">
@@ -918,7 +972,7 @@
           <span class="puzzle-badge" id="pzBadge">ELEKTRİK QAPISI</span>
           <span style="font-size:12px; color:#cbd5e1; font-weight:700;" id="pzTitle">Mövzu</span>
         </div>
-        <button class="px-btn sm dark" onclick="closePuzzle()">✕ Çıx</button>
+        <button class="px-btn sm dark" id="btnPzExit" onclick="closePuzzle()">✕ Çıx</button>
       </div>
       <div class="puzzle-body">
         <div class="puzzle-prompt" id="pzPrompt"></div>
@@ -933,15 +987,15 @@
     </div>
   </div>
 
-  <!-- LEVEL COMPLETE / GAME OVER MODAL -->
+  <!-- LEVEL COMPLETE / GAME OVER / ELECTRIC SHOCK MODAL -->
   <div id="resultModal" class="screen">
     <div class="result-card" id="resultCard">
       <h2 id="resTitle">SƏVİYYƏ TAMAMLANDI!</h2>
       <p id="resDesc"></p>
       <div class="menu-buttons">
         <button class="px-btn green" id="btnNextLvl" onclick="nextLevel()">▶ NÖVBƏTİ SƏVİYYƏ</button>
-        <button class="px-btn blue" onclick="restartLevel()">↻ YENİDƏN</button>
-        <button class="px-btn dark" onclick="openLevelSelect()">🗺 SƏVİYYƏLƏR</button>
+        <button class="px-btn blue" id="btnRetryLvl" onclick="restartLevel()">↻ YENİDƏN</button>
+        <button class="px-btn dark" id="btnResLevels" onclick="openLevelSelect()">🗺 SƏVİYYƏLƏR</button>
       </div>
     </div>
   </div>
@@ -949,7 +1003,636 @@
 
 <script>
 /* ==========================================================================
-   1. AUDIO ENGINE (8-Bit Retro Web Audio API — 100% Offline)
+   1. MULTI-LANGUAGE SYSTEM (AZ, EN, TR, RU)
+   ========================================================================== */
+const I18N = {
+  az: {
+    rotTitle: "Telefonu Yan Çevirin",
+    rotDesc: "<b>Super Məntiq</b> üfüqi (landscape) rejimdə oynanılır. Zəhmət olmasa ekranı yan çevirin.",
+    rotBtn: "Yenə də aç",
+    logo: "SUPER MƏNTİQ",
+    sub: "50 Səviyyəli Məntiq Cəbri və Elektrik Dövrələri Piksel Oyunu",
+    playStart: "▶ OYUNA BAŞLA",
+    playCont: "▶ DAVAM ET (SƏV {0})",
+    shopBtn: "👕 MAĞAZA (20 GEYİM)",
+    levelsBtn: "🗺 SƏVİYYƏLƏR (50)",
+    refBtn: "⚡ MƏNTİQ ELEMENTLƏRİ",
+    soundOn: "🔊 SƏS: AÇIQ",
+    soundOff: "🔇 SƏS: BAĞLI",
+    lblUnlocked: "Açılmış səviyyə",
+    lblCoins: "Qızıl",
+    lblSkin: "Geyim",
+    shopTitle: "👕 GEYİM MAĞAZASI (1000 🪙 & 2000 🪙)",
+    lvlSelectTitle: "🗺 SƏVİYYƏ SEÇİMİ (1 – 50)",
+    refTitle: "⚡ MƏNTİQ ELEMENTLƏRİ",
+    closeBtn: "✕ BAĞLA",
+    exitBtn: "✕ Çıx",
+    resetSlotsBtn: "↺ Boşluqları Təmizlə",
+    powerBtn: "⚡ CƏRƏYANI VER",
+    hudLvl: "SƏV {0}/50",
+    hudTrain: "🏁 TƏLİM",
+    touchScheme: "⚡<br>SXEM",
+    touchJump: "▲<br>TULLAN",
+    gateSign: "[E] SXEM",
+    badgeSwitch: "⚡ DÜYMƏLİ DÖVRƏ",
+    badgePlace: "🔌 SXEMİ TAMAMLA",
+    promptSwitch: "Giriş düymələrinə (0 / 1) toxunaraq elektrik enerjisini (1) qapıya çatdır və 'CƏRƏYANI VER' düyməsini bas!",
+    promptPlace: "Məntiq elementlərini (İnvertor, Dizyunktor, Konyunktor) uyğun boşluqlara sürüşdür (və ya toxun) və cərəyanı ver!",
+    trayNot: "İnvertor",
+    trayOr: "Dizyunktor (1)",
+    trayAnd: "Konyunktor (&)",
+    svgDoor: "QAPI",
+    svgOpen: "AÇIQ",
+    errArity: "Bu boşluğun giriş sayı uyğun deyil!",
+    errEmpty: "Bütün boşluqlara uyğun məntiq elementi yerləşdir!",
+    okPower: "⚡ Elektrik cərəyanı qapıya çatdı! Qapı açılır! (+25 🪙)",
+    floatOpen: "⚡ AÇILDI! +25 🪙",
+    errShockModal: "⚡ SƏHV DÖVRƏ! YÜKSƏK GƏRGİNLİK CƏRƏYANI SİZİ VURDU!",
+    floatShock: "⚡ CƏRƏYAN VURDU!",
+    shockTitle: "⚡ ELEKTRİK CƏRƏYANI VURDU!",
+    shockDesc: "Qapı səhv qurulduğu üçün bütün canlar getdi! Səviyyə başdan başlayır...",
+    toastLocked: "Əvvəlcə bütün elektrik qapılarını açmalısan!",
+    toastRespawn: "Başlanğıc nöqtəsinə qayıtdın!",
+    toastLvl: "Səviyyə {0}: {1}",
+    lockedLbl: "🔒 Bağlı",
+    equippedBtn: "✓ SEÇİLİB",
+    equipBtn: "SEÇ",
+    buyBtn: "{0} 🪙 AL",
+    msgEquipped: "\"{0}\" geyimi seçildi!",
+    msgNoCoins: "Kifayət qədər qızıl yoxdur! ({0} 🪙 lazımdır)",
+    msgBought: "🎉 \"{0}\" alındı və seçildi!",
+    winChampTitle: "🏆 TƏBRİKLƏR! MƏNTİQ ÇEMPİONU!",
+    winChampDesc: "Bütün 50 səviyyəni tamamladın! Cəmi qızılın: {0} 🪙",
+    winLvlTitle: "🎉 SƏVİYYƏ {0} TAMAMLANDI!",
+    winLvlDesc: "Mövzu: {0} | Qazanılan qızıl: +{1} 🪙",
+    loseTitle: "💥 CANLAR BİTDİ!",
+    loseDesc: "Yenidən cəhd et və bütün elektrik qapılarını aç!",
+    nextLvlBtn: "▶ NÖVBƏTİ SƏVİYYƏ",
+    retryBtn: "↻ YENİDƏN",
+    worlds: ["1. Yaşıl Çəmənlik", "2. Gərginlik Mağarası", "3. Məntiq Qalası", "4. Elektrik Zavodu", "5. Məntiq Zirvəsi"],
+    refNotTag: "İnvertor",
+    refNotDesc: "<b>İnversiya (DEYİL)</b><br>Siqnalı əksinə çevirir:<br><code>0 → 1</code> , <code>1 → 0</code>",
+    refOrTag: "Dizyunktor",
+    refOrDesc: "<b>Dizyunksiya (VƏ YA)</b><br>Ən azı bir giriş <code>1</code> olarsa çıxış <code>1</code> olur.<br><code>0|0=0</code>, qalanı <code>1</code>",
+    refAndTag: "Konyunktor",
+    refAndDesc: "<b>Konyunksiya (VƏ)</b><br>Yalnız hər iki giriş <code>1</code> olarsa çıxış <code>1</code> olur.<br><code>1&amp;1=1</code>, qalanı <code>0</code>"
+  },
+  en: {
+    rotTitle: "Rotate Your Phone",
+    rotDesc: "<b>Super Logic</b> is played in landscape mode. Please rotate your screen.",
+    rotBtn: "Continue anyway",
+    logo: "SUPER LOGIC",
+    sub: "50-Level Boolean Algebra & Electric Circuits Pixel Game",
+    playStart: "▶ START GAME",
+    playCont: "▶ CONTINUE (LVL {0})",
+    shopBtn: "👕 SHOP (20 SKINS)",
+    levelsBtn: "🗺 LEVELS (50)",
+    refBtn: "⚡ LOGIC GATES",
+    soundOn: "🔊 SOUND: ON",
+    soundOff: "🔇 SOUND: OFF",
+    lblUnlocked: "Unlocked level",
+    lblCoins: "Gold",
+    lblSkin: "Outfit",
+    shopTitle: "👕 OUTFIT SHOP (1000 🪙 & 2000 🪙)",
+    lvlSelectTitle: "🗺 SELECT LEVEL (1 – 50)",
+    refTitle: "⚡ LOGIC GATE ELEMENTS",
+    closeBtn: "✕ CLOSE",
+    exitBtn: "✕ Exit",
+    resetSlotsBtn: "↺ Clear Slots",
+    powerBtn: "⚡ APPLY POWER",
+    hudLvl: "LVL {0}/50",
+    hudTrain: "🏁 TRAIN",
+    touchScheme: "⚡<br>GATE",
+    touchJump: "▲<br>JUMP",
+    gateSign: "[E] GATE",
+    badgeSwitch: "⚡ SWITCH CIRCUIT",
+    badgePlace: "🔌 COMPLETE CIRCUIT",
+    promptSwitch: "Tap input switches (0 / 1) to send electric power (1) to the door, then press 'APPLY POWER'!",
+    promptPlace: "Drag (or tap) logic gates (Inverter, Disjunctor, Conjunctor) into the empty slots, then apply power!",
+    trayNot: "Inverter",
+    trayOr: "Disjunctor (1)",
+    trayAnd: "Conjunctor (&)",
+    svgDoor: "DOOR",
+    svgOpen: "OPEN",
+    errArity: "Input count does not match this slot!",
+    errEmpty: "Place a logic gate in every empty slot first!",
+    okPower: "⚡ Electric power reached the door! Unlocking! (+25 🪙)",
+    floatOpen: "⚡ UNLOCKED! +25 🪙",
+    errShockModal: "⚡ WRONG CIRCUIT! HIGH-VOLTAGE SHOCK HIT YOU!",
+    floatShock: "⚡ ELECTROCUTED!",
+    shockTitle: "⚡ ELECTRIC SHOCK!",
+    shockDesc: "Wrong circuit setup! All lives lost — restarting level from the start...",
+    toastLocked: "You must unlock all electric gates first!",
+    toastRespawn: "Returned to checkpoint!",
+    toastLvl: "Level {0}: {1}",
+    lockedLbl: "🔒 Locked",
+    equippedBtn: "✓ EQUIPPED",
+    equipBtn: "EQUIP",
+    buyBtn: "BUY {0} 🪙",
+    msgEquipped: "\"{0}\" outfit equipped!",
+    msgNoCoins: "Not enough gold! ({0} 🪙 needed)",
+    msgBought: "🎉 \"{0}\" purchased and equipped!",
+    winChampTitle: "🏆 CONGRATULATIONS! LOGIC CHAMPION!",
+    winChampDesc: "You completed all 50 levels! Total gold: {0} 🪙",
+    winLvlTitle: "🎉 LEVEL {0} COMPLETED!",
+    winLvlDesc: "Topic: {0} | Gold earned: +{1} 🪙",
+    loseTitle: "💥 OUT OF LIVES!",
+    loseDesc: "Try again and power up all electric gates!",
+    nextLvlBtn: "▶ NEXT LEVEL",
+    retryBtn: "↻ RETRY",
+    worlds: ["1. Green Meadow", "2. Voltage Cavern", "3. Logic Citadel", "4. Electric Factory", "5. Logic Summit"],
+    refNotTag: "Inverter",
+    refNotDesc: "<b>Inversion (NOT)</b><br>Inverts the signal:<br><code>0 → 1</code> , <code>1 → 0</code>",
+    refOrTag: "Disjunctor",
+    refOrDesc: "<b>Disjunction (OR)</b><br>Output is <code>1</code> if at least one input is <code>1</code>.<br><code>0|0=0</code>, else <code>1</code>",
+    refAndTag: "Conjunctor",
+    refAndDesc: "<b>Conjunction (AND)</b><br>Output is <code>1</code> only if both inputs are <code>1</code>.<br><code>1&amp;1=1</code>, else <code>0</code>"
+  },
+  tr: {
+    rotTitle: "Telefonu Yan Çevirin",
+    rotDesc: "<b>Süper Mantık</b> yatay (landscape) modda oynanır. Lütfen ekranı yan çevirin.",
+    rotBtn: "Yine de aç",
+    logo: "SÜPER MANTIK",
+    sub: "50 Seviyeli Mantık Cebiri ve Elektrik Devreleri Piksel Oyunu",
+    playStart: "▶ OYUNA BAŞLA",
+    playCont: "▶ DEVAM ET (SEV {0})",
+    shopBtn: "👕 MAĞAZA (20 KOSTÜM)",
+    levelsBtn: "🗺 SEVİYELER (50)",
+    refBtn: "⚡ MANTIK KAPILARI",
+    soundOn: "🔊 SES: AÇIK",
+    soundOff: "🔇 SES: KAPALI",
+    lblUnlocked: "Açılan seviye",
+    lblCoins: "Altın",
+    lblSkin: "Kostüm",
+    shopTitle: "👕 KOSTÜM MAĞAZASI (1000 🪙 & 2000 🪙)",
+    lvlSelectTitle: "🗺 SEVİYE SEÇİMİ (1 – 50)",
+    refTitle: "⚡ MANTIK ELEMANLARI",
+    closeBtn: "✕ KAPAT",
+    exitBtn: "✕ Çık",
+    resetSlotsBtn: "↺ Boşlukları Temizle",
+    powerBtn: "⚡ AKIMI VER",
+    hudLvl: "SEV {0}/50",
+    hudTrain: "🏁 EĞİTİM",
+    touchScheme: "⚡<br>DEVRE",
+    touchJump: "▲<br>ZIPLA",
+    gateSign: "[E] DEVRE",
+    badgeSwitch: "⚡ ANAHTARLI DEVRE",
+    badgePlace: "🔌 DEVREYİ TAMAMLA",
+    promptSwitch: "Giriş düğmelerine (0 / 1) dokunarak elektrik akımını (1) kapıya ulaştır ve 'AKIMI VER' düğmesine bas!",
+    promptPlace: "Mantık elemanlarını (İnvertör, Dizyunktör, Konyunktör) uygun boşluklara sürükle (veya dokun) ve akımı ver!",
+    trayNot: "İnvertör",
+    trayOr: "Dizyunktör (1)",
+    trayAnd: "Konyunktör (&)",
+    svgDoor: "KAPI",
+    svgOpen: "AÇIK",
+    errArity: "Bu boşluğun giriş sayısı uygun değil!",
+    errEmpty: "Tüm boşluklara uygun mantık elemanı yerleştir!",
+    okPower: "⚡ Elektrik akımı kapıya ulaştı! Kapı açılıyor! (+25 🪙)",
+    floatOpen: "⚡ AÇILDI! +25 🪙",
+    errShockModal: "⚡ YANLIŞ DEVRE! YÜKSEK GERİLİM AKIMI SİZİ ÇARPTI!",
+    floatShock: "⚡ AKIM ÇARPTI!",
+    shockTitle: "⚡ ELEKTRİK AKIMI ÇARPTI!",
+    shockDesc: "Kapı yanlış kurulduğu için tüm canlar gitti! Seviye baştan başlıyor...",
+    toastLocked: "Önce tüm elektrik kapılarını açmalısın!",
+    toastRespawn: "Başlangıç noktasına döndün!",
+    toastLvl: "Seviye {0}: {1}",
+    lockedLbl: "🔒 Kilitli",
+    equippedBtn: "✓ SEÇİLDİ",
+    equipBtn: "SEÇ",
+    buyBtn: "{0} 🪙 AL",
+    msgEquipped: "\"{0}\" kostümü seçildi!",
+    msgNoCoins: "Yeterli altın yok! ({0} 🪙 gerekli)",
+    msgBought: "🎉 \"{0}\" satın alındı ve seçildi!",
+    winChampTitle: "🏆 TEBRİKLER! MANTIK ŞAMPİYONU!",
+    winChampDesc: "Tüm 50 seviyeyi tamamladın! Toplam altının: {0} 🪙",
+    winLvlTitle: "🎉 SEVİYE {0} TAMAMLANDI!",
+    winLvlDesc: "Konu: {0} | Kazanılan altın: +{1} 🪙",
+    loseTitle: "💥 CANLAR BİTTİ!",
+    loseDesc: "Tekrar dene ve tüm elektrik kapılarını aç!",
+    nextLvlBtn: "▶ SONRAKİ SEVİYE",
+    retryBtn: "↻ TEKRAR",
+    worlds: ["1. Yeşil Çayır", "2. Gerilim Mağarası", "3. Mantık Kalesi", "4. Elektrik Fabrikası", "5. Mantık Zirvesi"],
+    refNotTag: "İnvertör",
+    refNotDesc: "<b>İnversiyon (DEĞİL)</b><br>Sinyali tersine çevirir:<br><code>0 → 1</code> , <code>1 → 0</code>",
+    refOrTag: "Dizyunktör",
+    refOrDesc: "<b>Dizyunksiyon (VEYA)</b><br>En az bir giriş <code>1</code> ise çıkış <code>1</code> olur.<br><code>0|0=0</code>, diğerleri <code>1</code>",
+    refAndTag: "Konyunktör",
+    refAndDesc: "<b>Konyunksiyon (VE)</b><br>Yalnızca her iki giriş <code>1</code> ise çıkış <code>1</code> olur.<br><code>1&amp;1=1</code>, diğerleri <code>0</code>"
+  },
+  ru: {
+    rotTitle: "Поверните телефон",
+    rotDesc: "<b>Супер Логика</b> работает в горизонтальном режиме. Пожалуйста, поверните экран.",
+    rotBtn: "Открыть всё равно",
+    logo: "СУПЕР ЛОГИКА",
+    sub: "50-уровневая пиксельная игра по алгебре логики и электросхемам",
+    playStart: "▶ НАЧАТЬ ИГРУ",
+    playCont: "▶ ПРОДОЛЖИТЬ (УР {0})",
+    shopBtn: "👕 МАГАЗИН (20 СКИНОВ)",
+    levelsBtn: "🗺 УРОВНИ (50)",
+    refBtn: "⚡ ЛОГИЧЕСКИЕ ЭЛЕМЕНТЫ",
+    soundOn: "🔊 ЗВУК: ВКЛ",
+    soundOff: "🔇 ЗВУК: ВЫКЛ",
+    lblUnlocked: "Открыто уровней",
+    lblCoins: "Золото",
+    lblSkin: "Костюм",
+    shopTitle: "👕 МАГАЗИН КОСТЮМОВ (1000 🪙 и 2000 🪙)",
+    lvlSelectTitle: "🗺 ВЫБОР УРОВНЯ (1 – 50)",
+    refTitle: "⚡ ЛОГИЧЕСКИЕ ЭЛЕМЕНТЫ",
+    closeBtn: "✕ ЗАКРЫТЬ",
+    exitBtn: "✕ Выход",
+    resetSlotsBtn: "↺ Очистить слоты",
+    powerBtn: "⚡ ПОДАТЬ ТОК",
+    hudLvl: "УР {0}/50",
+    hudTrain: "🏁 ОБУЧЕНИЕ",
+    touchScheme: "⚡<br>СХЕМА",
+    touchJump: "▲<br>ПРЫЖОК",
+    gateSign: "[E] СХЕМА",
+    badgeSwitch: "⚡ СХЕМА С КНОПКАМИ",
+    badgePlace: "🔌 СОБЕРИ СХЕМУ",
+    promptSwitch: "Нажимайте входные кнопки (0 / 1), чтобы подать ток (1) на дверь, и нажмите «ПОДАТЬ ТОК»!",
+    promptPlace: "Перетащите (или нажмите) элементы (Инвертор, Дизъюнктор, Конъюнктор) в пустые слоты и подайте ток!",
+    trayNot: "Инвертор",
+    trayOr: "Дизъюнктор (1)",
+    trayAnd: "Конъюнктор (&)",
+    svgDoor: "ДВЕРЬ",
+    svgOpen: "ОТКР",
+    errArity: "Число входов не подходит для этого слота!",
+    errEmpty: "Заполните все пустые слоты логическими элементами!",
+    okPower: "⚡ Электрический ток дошёл до двери! Открываем! (+25 🪙)",
+    floatOpen: "⚡ ОТКРЫТО! +25 🪙",
+    errShockModal: "⚡ НЕВЕРНАЯ СХЕМА! ВАС УДАРИЛО ТОКОМ ВЫСОКОГО НАПРЯЖЕНИЯ!",
+    floatShock: "⚡ УДАР ТОКОМ!",
+    shockTitle: "⚡ УДАР ЭЛЕКТРИЧЕСКИМ ТОКОМ!",
+    shockDesc: "Схема собрана неверно — все жизни потеряны! Уровень начинается заново...",
+    toastLocked: "Сначала откройте все электрические двери!",
+    toastRespawn: "Возврат к контрольной точке!",
+    toastLvl: "Уровень {0}: {1}",
+    lockedLbl: "🔒 Закрыто",
+    equippedBtn: "✓ ВЫБРАНО",
+    equipBtn: "ВЫБРАТЬ",
+    buyBtn: "КУПИТЬ {0} 🪙",
+    msgEquipped: "Костюм «{0}» выбран!",
+    msgNoCoins: "Недостаточно золота! (Нужно {0} 🪙)",
+    msgBought: "🎉 Костюм «{0}» куплен и выбран!",
+    winChampTitle: "🏆 ПОЗДРАВЛЯЕМ! ЧЕМПИОН ЛОГИКИ!",
+    winChampDesc: "Вы прошли все 50 уровней! Всего золота: {0} 🪙",
+    winLvlTitle: "🎉 УРОВЕНЬ {0} ПРОЙДЕН!",
+    winLvlDesc: "Тема: {0} | Заработано золота: +{1} 🪙",
+    loseTitle: "💥 ЖИЗНИ ЗАКОНЧИЛИСЬ!",
+    loseDesc: "Попробуйте снова и откройте все электрические двери!",
+    nextLvlBtn: "▶ СЛЕДУЮЩИЙ УРОВЕНЬ",
+    retryBtn: "↻ ЗАНОВО",
+    worlds: ["1. Зелёный Луг", "2. Пещера Напряжения", "3. Цитадель Логики", "4. Электрозавод", "5. Вершина Логики"],
+    refNotTag: "Инвертор",
+    refNotDesc: "<b>Инверсия (НЕ)</b><br>Меняет сигнал на обратный:<br><code>0 → 1</code> , <code>1 → 0</code>",
+    refOrTag: "Дизъюнктор",
+    refOrDesc: "<b>Дизъюнкция (ИЛИ)</b><br>Выход равен <code>1</code>, если хотя бы один вход <code>1</code>.<br><code>0|0=0</code>, иначе <code>1</code>",
+    refAndTag: "Конъюнктор",
+    refAndDesc: "<b>Конъюнкция (И)</b><br>Выход равен <code>1</code>, только если оба входа <code>1</code>.<br><code>1&amp;1=1</code>, иначе <code>0</code>"
+  }
+};
+
+function tr(key, ...args) {
+  const dict = I18N[Save.lang] || I18N.az;
+  let s = dict[key] !== undefined ? dict[key] : (I18N.az[key] || key);
+  args.forEach((a, i) => { s = s.replace(`{${i}}`, a); });
+  return s;
+}
+
+// Dynamic translation helper for Level Topics, Intros, and Gate Titles
+function trDynamic(text) {
+  if (!text || Save.lang === "az") return text;
+  const L = Save.lang;
+  const exactMap = {
+    "Təlim (Qapısız)": { en: "Training (No Gates)", tr: "Eğitim (Kapısız)", ru: "Обучение (Без дверей)" },
+    "İnvertor (DEYİL)": { en: "Inverter (NOT)", tr: "İnvertör (DEĞİL)", ru: "Инвертор (НЕ)" },
+    "Dizyunktor (VƏ YA)": { en: "Disjunctor (OR)", tr: "Dizyunktör (VEYA)", ru: "Дизъюнктор (ИЛИ)" },
+    "Konyunktor (VƏ)": { en: "Conjunctor (AND)", tr: "Konyunktör (VE)", ru: "Конъюнктор (И)" },
+    "Konyunktor və İnversiya": { en: "Conjunctor & Inversion", tr: "Konyunktör ve İnversiyon", ru: "Конъюнктор и инверсия" },
+    "Dizyunktor və İnversiya": { en: "Disjunctor & Inversion", tr: "Dizyunktör ve İnversiyon", ru: "Дизъюнктор и инверсия" },
+    "Girişdə İnvertor": { en: "Input Inverter", tr: "Girişte İnvertör", ru: "Инвертор на входе" },
+    "Aşağı Qolda İnvertor": { en: "Lower Branch Inverter", tr: "Alt Kolda İnvertör", ru: "Инвертор в нижней ветви" },
+    "Qoşa İnvertor": { en: "Dual Inverter", tr: "Çift İnvertör", ru: "Двойной инвертор" },
+    "1-ci Dünya Finalı (5 Qapı)": { en: "World 1 Finale (5 Gates)", tr: "1. Dünya Finali (5 Kapı)", ru: "Финал 1-го мира (5 дверей)" },
+    "3 Girişli Konyunktor": { en: "3-Input Conjunctor", tr: "3 Girişli Konyunktör", ru: "3-входовой конъюнктор" },
+    "Dizyunktor + Konyunktor": { en: "Disjunctor + Conjunctor", tr: "Dizyunktör + Konyunktör", ru: "Дизъюнктор + Конъюнктор" },
+    "C Girişində İnvertor": { en: "Inverter on Input C", tr: "C Girişinde İnvertör", ru: "Инвертор на входе C" },
+    "A Girişində İnvertor": { en: "Inverter on Input A", tr: "A Girişinde İnvertör", ru: "Инвертор на входе A" },
+    "Son Çıxışda İnvertor": { en: "Output Inverter", tr: "Son Çıkışta İnvertör", ru: "Инвертор на выходе" },
+    "Orta Qolda İnvertor": { en: "Middle Branch Inverter", tr: "Orta Kolda İnvertör", ru: "Инвертор в средней ветви" },
+    "İnversiyalı Qol": { en: "Inverted Branch", tr: "İnversiyonlu Kol", ru: "Инверсная ветвь" },
+    "İki İnvertorlu 3 Giriş": { en: "3-Input Dual Inverter", tr: "İki İnvertörlü 3 Giriş", ru: "3 входа с 2 инверторами" },
+    "Birləşmiş İnversiya": { en: "Combined Inversion", tr: "Birleşik İnversiyon", ru: "Комбинированная инверсия" },
+    "2-ci Dünya Finalı (5 Qapı)": { en: "World 2 Finale (5 Gates)", tr: "2. Dünya Finali (5 Kapı)", ru: "Финал 2-го мира (5 дверей)" },
+    "4 Girişli Dövrə": { en: "4-Input Circuit", tr: "4 Girişli Devre", ru: "4-входовая схема" },
+    "Paralel Qollar": { en: "Parallel Branches", tr: "Paralel Kollar", ru: "Параллельные ветви" },
+    "Tək Qolda İnvertor": { en: "Single Branch Inverter", tr: "Tek Kolda İnvertör", ru: "Инвертор в одной ветви" },
+    "Aşağı Qolda İnvertor": { en: "Lower Branch Inverter", tr: "Alt Kolda İnvertör", ru: "Инвертор в нижней ветви" },
+    "Qoşa İnversiya Şəbəkəsi": { en: "Dual Inversion Network", tr: "Çift İnversiyon Ağı", ru: "Сеть двойной инверсии" },
+    "Çarpaz Giriş (Budaqlanma)": { en: "Crossed Input (Branching)", tr: "Çapraz Giriş (Dallanma)", ru: "Перекрёстный вход" },
+    "Ekvivalentlik Dövrəsi": { en: "Equivalence Circuit", tr: "Denklik Devresi", ru: "Схема эквивалентности" },
+    "Üç Qatlı Zəncir": { en: "Three-Layer Chain", tr: "Üç Katmanlı Zincir", ru: "Трёхслойная цепочка" },
+    "Giriş İnversiyalı 4-lü": { en: "4-Input Inverted Edge", tr: "Giriş İnversiyonlu 4'lü", ru: "4 входа с инверсией" },
+    "3-cü Dünya Finalı (5 Qapı)": { en: "World 3 Finale (5 Gates)", tr: "3. Dünya Finali (5 Kapı)", ru: "Финал 3-го мира (5 дверей)" },
+    "İç İnvertorlar": { en: "Inner Inverters", tr: "İç İnvertörler", ru: "Внутренние инверторы" },
+    "Tərs Çıxışlı Şəbəkə": { en: "Inverted Output Network", tr: "Ters Çıkışlı Ağ", ru: "Сеть с инверсией выхода" },
+    "Paylanan Siqnal (Budaq)": { en: "Shared Signal Branch", tr: "Paylaşılan Sinyal Kolu", ru: "Разветвлённый сигнал" },
+    "De Morgan Qanunu I": { en: "De Morgan's Law I", tr: "De Morgan Yasası I", ru: "Закон де Моргана I" },
+    "De Morgan Qanunu II": { en: "De Morgan's Law II", tr: "De Morgan Yasası II", ru: "Закон де Моргана II" },
+    "Kaskad Dövrə": { en: "Cascade Circuit", tr: "Kaskad Devre", ru: "Каскадная схема" },
+    "Budaqlanan 3 Giriş": { en: "Branched 3-Input", tr: "Dallanan 3 Giriş", ru: "Разветвлённые 3 входа" },
+    "İkiqat Tərs Şəbəkə": { en: "Double Inverted Network", tr: "Çift Ters Ağ", ru: "Двойная инверсная сеть" },
+    "3 Boşluqlu Zavod Kilidi": { en: "3-Slot Factory Lock", tr: "3 Boşluklu Fabrika Kilidi", ru: "Заводской замок (3 слота)" },
+    "4-cü Dünya Finalı (5 Qapı)": { en: "World 4 Finale (5 Gates)", tr: "4. Dünya Finali (5 Kapı)", ru: "Финал 4-го мира (5 дверей)" },
+    "Çarpaz 3 Giriş": { en: "Crossed 3-Input", tr: "Çapraz 3 Giriş", ru: "Перекрёстные 3 входа" },
+    "İkiqat Çarpaz": { en: "Double Cross", tr: "Çift Çapraz", ru: "Двойной перекрёст" },
+    "4 Girişli Çarpaz": { en: "4-Input Cross", tr: "4 Girişli Çapraz", ru: "4-входовой перекрёст" },
+    "Tək Həllli 4-lü Kilid": { en: "Unique-Solution 4-Lock", tr: "Tek Çözümlü 4'lü Kilit", ru: "4-входовой замок" },
+    "Mürəkkəb Budaqlanma": { en: "Complex Branching", tr: "Karmaşık Dallanma", ru: "Сложное ветвление" },
+    "Üçqat İnversiya": { en: "Triple Inversion", tr: "Üçlü İnversiyon", ru: "Тройная инверсия" },
+    "Dərin Zəncir I": { en: "Deep Chain I", tr: "Derin Zincir I", ru: "Глубокая цепочка I" },
+    "Dərin Zəncir II": { en: "Deep Chain II", tr: "Derin Zincir II", ru: "Глубокая цепочка II" },
+    "Finala Hazırlıq": { en: "Finale Preparation", tr: "Finale Hazırlık", ru: "Подготовка к финалу" },
+    "BÖYÜK FİNAL (5 Qapı)": { en: "GRAND FINALE (5 Gates)", tr: "BÜYÜK FİNAL (5 Kapı)", ru: "БОЛЬШОЙ ФИНАЛ (5 дверей)" },
+    "1-ci səviyyə: Qapı yoxdur! Hərəkət et, qızılları topla, böcəkləri əz və bayrağa çat!": {
+      en: "Level 1: No gates! Move, collect gold, stomp bugs, and reach the flag!",
+      tr: "1. Seviye: Kapı yok! Hareket et, altınları topla, böcekleri ez ve bayrağa ulaş!",
+      ru: "Уровень 1: Дверей нет! Двигайтесь, собирайте золото, прыгайте на жуков и дойдите до флага!"
+    },
+    "2-ci səviyyə: 1-ci qapıda düyməyə bas, 2-ci qapıda elementi boşluğa qoy!": {
+      en: "Level 2: Toggle switches at Gate 1, place the gate into the slot at Gate 2!",
+      tr: "2. Seviye: 1. kapıda düğmelere bas, 2. kapıda elemanı boşluğa yerleştir!",
+      ru: "Уровень 2: Нажимайте кнопки на 1-й двери, вставьте элемент в слот на 2-й двери!"
+    },
+    "10-cu Səviyyə (FİNAL): Bu səviyyədə 5 elektrik qapısı var!": {
+      en: "Level 10 (FINALE): There are 5 electric gates in this level!",
+      tr: "10. Seviye (FİNAL): Bu seviyede 5 elektrik kapısı var!",
+      ru: "Уровень 10 (ФИНАЛ): На этом уровне 5 электрических дверей!"
+    },
+    "2-ci Dünya: 3 girişli elektrik dövrələri başlayır!": {
+      en: "World 2: 3-input electric circuits begin!",
+      tr: "2. Dünya: 3 girişli elektrik devreleri başlıyor!",
+      ru: "Мир 2: Начинаются 3-входовые электрические схемы!"
+    },
+    "20-ci Səviyyə (FİNAL): 5 üç-girişli qapını elektrik cərəyanı ilə aç!": {
+      en: "Level 20 (FINALE): Open 5 three-input gates with electric power!",
+      tr: "20. Seviye (FİNAL): 5 üç girişli kapıyı elektrik akımıyla aç!",
+      ru: "Уровень 20 (ФИНАЛ): Откройте 5 трёхвходовых дверей электрическим током!"
+    },
+    "3-cü Dünya: Məntiq Qalası! 4 girişli və 2 boşluqlu dövrələr!": {
+      en: "World 3: Logic Citadel! 4-input and 2-slot circuits!",
+      tr: "3. Dünya: Mantık Kalesi! 4 girişli ve 2 boşluklu devreler!",
+      ru: "Мир 3: Цитадель Логики! Схемы с 4 входами и 2 слотами!"
+    },
+    "30-cu Səviyyə (FİNAL): 5 qala qapısını ardıcıl aç!": {
+      en: "Level 30 (FINALE): Open all 5 citadel gates in sequence!",
+      tr: "30. Seviye (FİNAL): 5 kale kapısını sırayla aç!",
+      ru: "Уровень 30 (ФИНАЛ): Откройте все 5 дверей цитадели подряд!"
+    },
+    "4-cü Dünya: Elektrik Zavodu! Dərin 4 girişli dövrələr səni gözləyir!": {
+      en: "World 4: Electric Factory! Deep 4-input circuits await you!",
+      tr: "4. Dünya: Elektrik Fabrikası! Derin 4 girişli devreler seni bekliyor!",
+      ru: "Мир 4: Электрозавод! Вас ждут глубокие 4-входовые схемы!"
+    },
+    "40-cı Səviyyə (FİNAL): Zavodun 5 əsas elektrik qapısını aç!": {
+      en: "Level 40 (FINALE): Open the factory's 5 main electric gates!",
+      tr: "40. Seviye (FİNAL): Fabrikanın 5 ana elektrik kapısını aç!",
+      ru: "Уровень 40 (ФИНАЛ): Откройте 5 главных электрических дверей завода!"
+    },
+    "5-ci Dünya: Məntiq Zirvəsi! Ən çətin çoxmərhələli elektrik dövrələri!": {
+      en: "World 5: Logic Summit! The hardest multi-stage electric circuits!",
+      tr: "5. Dünya: Mantık Zirvesi! En zor çok aşamalı elektrik devreleri!",
+      ru: "Мир 5: Вершина Логики! Самые сложные многоступенчатые электросхемы!"
+    },
+    "50-ci Səviyyə — BÖYÜK FİNAL! 5 Master Məntiq Qapısını aç və çempion ol!": {
+      en: "Level 50 — GRAND FINALE! Open 5 Master Logic Gates and become champion!",
+      tr: "50. Seviye — BÜYÜK FİNAL! 5 Usta Mantık Kapısını aç ve şampiyon ol!",
+      ru: "Уровень 50 — БОЛЬШОЙ ФИНАЛ! Откройте 5 мастер-дверей и станьте чемпионом!"
+    }
+  };
+  if (exactMap[text] && exactMap[text][L]) return exactMap[text][L];
+
+  // Structural phrase translation for gate titles
+  let s = text;
+  if (L === "en") {
+    s = s.replace(/^Böyük Final (\d\/5):/, "Grand Finale $1:")
+         .replace(/^Final Qapı (\d\/5):/, "Final Gate $1:")
+         .replace(/^Qapı (\d):/, "Gate $1:")
+         .replace(/DEYİL/g, "NOT")
+         .replace(/VƏ YA/g, "OR")
+         .replace(/VƏ/g, "AND")
+         .replace(/İnvertor düyməsi/g, "Inverter Switch")
+         .replace(/İnvertoru yerləşdir/g, "Place Inverter")
+         .replace(/Dizyunktoru yerləşdir/g, "Place Disjunctor")
+         .replace(/Dizyunktor/g, "Disjunctor")
+         .replace(/Konyunktorun İnversiyası/g, "Conjunctor Inversion")
+         .replace(/Konyunktor/g, "Conjunctor")
+         .replace(/Üçlü/g, "Triple")
+         .replace(/İnversiyalı/g, "Inverted")
+         .replace(/İnversiyası/g, "Inversion")
+         .replace(/İnversiya/g, "Inversion")
+         .replace(/İnvertorlar/g, "Inverters")
+         .replace(/İnvertorlu/g, "Inverter")
+         .replace(/İnvertor/g, "Inverter")
+         .replace(/Boşluqlu/g, "Slot")
+         .replace(/Boşluğu Doldur/g, "Fill Slots")
+         .replace(/Boşluqlar/g, "Slots")
+         .replace(/Boşluq/g, "Slots")
+         .replace(/Girişli/g, "Input")
+         .replace(/Girişdə/g, "Input")
+         .replace(/Giriş/g, "Input")
+         .replace(/Çıxışda/g, "Output")
+         .replace(/Çıxış/g, "Output")
+         .replace(/Kilidi/g, "Lock")
+         .replace(/Kilid/g, "Lock")
+         .replace(/Dövrəni tamamla/g, "Complete Circuit")
+         .replace(/Dövrə/g, "Circuit")
+         .replace(/Düzgün Sxemi Qur/g, "Build Correct Circuit")
+         .replace(/Düzgün elementi tap/g, "Find Correct Gate")
+         .replace(/Elementi seç/g, "Select Element")
+         .replace(/Element Yerləşdir/g, "Place Elements")
+         .replace(/Zənciri Tamamla/g, "Complete Chain")
+         .replace(/Zəncir/g, "Chain")
+         .replace(/Budaqlanma/g, "Branching")
+         .replace(/Budaqlanan/g, "Branched")
+         .replace(/Budağı/g, "Branch")
+         .replace(/Budaq/g, "Branch")
+         .replace(/Simmetrik/g, "Symmetric")
+         .replace(/Çarpaz/g, "Crossed")
+         .replace(/Məntiq Ustası/g, "Logic Master")
+         .replace(/Qoşa/g, "Dual")
+         .replace(/İki/g, "Two")
+         .replace(/Üçqat/g, "Triple")
+         .replace(/Mərhələli/g, "Stage")
+         .replace(/Seçim/g, "Choice")
+         .replace(/Kaskad/g, "Cascade")
+         .replace(/Mürəkkəb/g, "Complex")
+         .replace(/Dərin/g, "Deep")
+         .replace(/Yuxarı Qolda/g, "Upper Branch")
+         .replace(/Aşağı Qol/g, "Lower Branch")
+         .replace(/Hər İki Qolda/g, "Both Branches")
+         .replace(/Kənar/g, "Outer")
+         .replace(/İç/g, "Inner")
+         .replace(/Orta Siqnal/g, "Middle Signal")
+         .replace(/İki Qolun Birləşməsi/g, "Merge Two Branches")
+         .replace(/İki Qatlı/g, "Two-Layer")
+         .replace(/İlk Sınaq/g, "First Trial")
+         .replace(/Yalnız 1 Həll/g, "Unique Solution")
+         .replace(/Çətin/g, "Hard")
+         .replace(/Elementini Tap/g, "Gate");
+  } else if (L === "tr") {
+    s = s.replace(/^Böyük Final (\d\/5):/, "Büyük Final $1:")
+         .replace(/^Final Qapı (\d\/5):/, "Final Kapı $1:")
+         .replace(/^Qapı (\d):/, "Kapı $1:")
+         .replace(/DEYİL/g, "DEĞİL")
+         .replace(/VƏ YA/g, "VEYA")
+         .replace(/VƏ/g, "VE")
+         .replace(/İnvertor düyməsi/g, "İnvertör Düğmesi")
+         .replace(/İnvertoru yerləşdir/g, "İnvertörü Yerleştir")
+         .replace(/Dizyunktoru yerləşdir/g, "Dizyunktörü Yerleştir")
+         .replace(/Dizyunktor/g, "Dizyunktör")
+         .replace(/Konyunktor/g, "Konyunktör")
+         .replace(/Boşluqlu/g, "Boşluklu")
+         .replace(/Boşluğu/g, "Boşluğu")
+         .replace(/Boşluqlar/g, "Boşluklar")
+         .replace(/Boşluq/g, "Boşluk")
+         .replace(/Dövrəni tamamla/g, "Devreyi Tamamla")
+         .replace(/Dövrə/g, "Devre")
+         .replace(/Çıxış/g, "Çıkış")
+         .replace(/Məntiq Ustası/g, "Mantık Ustası")
+         .replace(/Zəncir/g, "Zincir")
+         .replace(/Mərhələli/g, "Aşamalı")
+         .replace(/Mürəkkəb/g, "Karmaşık")
+         .replace(/Dərin/g, "Derin")
+         .replace(/Budaq/g, "Dal");
+  } else if (L === "ru") {
+    s = s.replace(/^Böyük Final (\d\/5):/, "Большой финал $1:")
+         .replace(/^Final Qapı (\d\/5):/, "Финальная дверь $1:")
+         .replace(/^Qapı (\d):/, "Дверь $1:")
+         .replace(/DEYİL/g, "НЕ")
+         .replace(/VƏ YA/g, "ИЛИ")
+         .replace(/VƏ/g, "И")
+         .replace(/İnvertor düyməsi/g, "Кнопка инвертора")
+         .replace(/İnvertoru yerləşdir/g, "Установите инвертор")
+         .replace(/Dizyunktoru yerləşdir/g, "Установите дизъюнктор")
+         .replace(/Dizyunktor/g, "Дизъюнктор")
+         .replace(/Konyunktorun İnversiyası/g, "Инверсия конъюнктора")
+         .replace(/Konyunktor/g, "Конъюнктор")
+         .replace(/Üçlü/g, "Тройной")
+         .replace(/İnversiyalı/g, "Инверсный")
+         .replace(/İnversiyası/g, "Инверсия")
+         .replace(/İnversiya/g, "Инверсия")
+         .replace(/İnvertorlar/g, "Инверторы")
+         .replace(/İnvertorlu/g, "Инверторная")
+         .replace(/İnvertor/g, "Инвертор")
+         .replace(/Boşluqlu/g, "слота")
+         .replace(/Boşluğu Doldur/g, "Заполните 2 слота")
+         .replace(/Boşluqlar/g, "Слоты")
+         .replace(/Boşluq/g, "слота")
+         .replace(/Girişli/g, "входа")
+         .replace(/Girişdə/g, "На входе")
+         .replace(/Giriş/g, "входа")
+         .replace(/Çıxışda/g, "На выходе")
+         .replace(/Çıxış/g, "Выход")
+         .replace(/Kilidi/g, "Замок")
+         .replace(/Kilid/g, "Замок")
+         .replace(/Dövrəni tamamla/g, "Завершите схему")
+         .replace(/Dövrə/g, "Схема")
+         .replace(/Düzgün Sxemi Qur/g, "Соберите верную схему")
+         .replace(/Düzgün elementi tap/g, "Найдите нужный элемент")
+         .replace(/Elementi seç/g, "Выберите элемент")
+         .replace(/Element Yerləşdir/g, "Разместите элементы")
+         .replace(/Zənciri Tamamla/g, "Завершите цепочку")
+         .replace(/Zəncir/g, "Цепочка")
+         .replace(/Budaqlanma/g, "Ветвление")
+         .replace(/Budaqlanan/g, "Ветвящиеся")
+         .replace(/Budağı/g, "Ветвь")
+         .replace(/Budaq/g, "Ветвь")
+         .replace(/Simmetrik/g, "Симметричный")
+         .replace(/Çarpaz/g, "Перекрёстный")
+         .replace(/Məntiq Ustası/g, "Мастер логики")
+         .replace(/Qoşa/g, "Двойная")
+         .replace(/İki/g, "Два")
+         .replace(/Üçqat/g, "Тройная")
+         .replace(/Mərhələli/g, "этапный")
+         .replace(/Seçim/g, "Выбор")
+         .replace(/Kaskad/g, "Каскадные")
+         .replace(/Mürəkkəb/g, "Сложная")
+         .replace(/Dərin/g, "Глубокая")
+         .replace(/Yuxarı Qolda/g, "В верхней ветви")
+         .replace(/Aşağı Qol/g, "Нижняя ветвь")
+         .replace(/Hər İki Qolda/g, "В обеих ветвях")
+         .replace(/Kənar/g, "Внешние")
+         .replace(/İç/g, "Внутренние")
+         .replace(/Orta Siqnal/g, "Средний сигнал")
+         .replace(/İki Qolun Birləşməsi/g, "Слияние двух ветвей")
+         .replace(/İki Qatlı/g, "Двухслойная")
+         .replace(/İlk Sınaq/g, "Первое испытание")
+         .replace(/Yalnız 1 Həll/g, "1 решение")
+         .replace(/Çətin/g, "Сложная")
+         .replace(/Elementini Tap/g, "Элемент");
+  }
+  return s;
+}
+
+function applyLanguageUI() {
+  document.documentElement.lang = Save.lang;
+  document.querySelectorAll(".lang-btn").forEach(b => {
+    b.classList.toggle("active", b.dataset.lang === Save.lang);
+  });
+
+  document.getElementById("rotTitle").textContent = tr("rotTitle");
+  document.getElementById("rotDesc").innerHTML = tr("rotDesc");
+  document.getElementById("rotBtn").textContent = tr("rotBtn");
+
+  document.getElementById("uiLogo").textContent = tr("logo");
+  document.getElementById("uiSub").textContent = tr("sub");
+  document.getElementById("btnShopMain").textContent = tr("shopBtn");
+  document.getElementById("btnLevelsMain").textContent = tr("levelsBtn");
+  document.getElementById("btnRefMain").textContent = tr("refBtn");
+  document.getElementById("lblUnlocked").textContent = tr("lblUnlocked");
+  document.getElementById("lblCoins").textContent = tr("lblCoins");
+  document.getElementById("lblSkin").textContent = tr("lblSkin");
+
+  document.getElementById("uiShopTitle").textContent = tr("shopTitle");
+  document.getElementById("uiLvlSelectTitle").textContent = tr("lvlSelectTitle");
+  document.getElementById("uiRefTitle").textContent = tr("refTitle");
+  document.getElementById("uiRefClose").textContent = tr("closeBtn");
+
+  document.getElementById("refNotTag").textContent = tr("refNotTag");
+  document.getElementById("refNotDesc").innerHTML = tr("refNotDesc");
+  document.getElementById("refOrTag").textContent = tr("refOrTag");
+  document.getElementById("refOrDesc").innerHTML = tr("refOrDesc");
+  document.getElementById("refAndTag").textContent = tr("refAndTag");
+  document.getElementById("refAndDesc").innerHTML = tr("refAndDesc");
+
+  document.getElementById("btnPzExit").textContent = tr("exitBtn");
+  document.getElementById("btnResetCircuit").textContent = tr("resetSlotsBtn");
+  document.getElementById("btnPowerCheck").textContent = tr("powerBtn");
+
+  document.getElementById("btnAction").innerHTML = tr("touchScheme");
+  document.getElementById("btnJump").innerHTML = tr("touchJump");
+
+  document.getElementById("btnNextLvl").textContent = tr("nextLvlBtn");
+  document.getElementById("btnRetryLvl").textContent = tr("retryBtn");
+  document.getElementById("btnResLevels").textContent = tr("levelsBtn");
+
+  updateMenuStats();
+  if (world) updateHUD();
+  if (document.getElementById("shopScreen").classList.contains("visible")) renderShop();
+  if (document.getElementById("levelSelectScreen").classList.contains("visible")) renderLevelSelect();
+}
+
+function setLang(lang) {
+  if (!I18N[lang]) return;
+  Save.lang = lang;
+  writeSave();
+  AudioFX.click();
+  applyLanguageUI();
+}
+
+/* ==========================================================================
+   2. AUDIO ENGINE (8-Bit Retro Web Audio API — 100% Offline)
    ========================================================================== */
 const AudioFX = {
   ctx: null,
@@ -993,6 +1676,13 @@ const AudioFX = {
     this.tone(190, 0.12, 'sawtooth', 0.09, 0);
     this.tone(120, 0.18, 'sawtooth', 0.09, 0.1);
   },
+  shock() {
+    // High-voltage electric zap sound
+    const freqs = [920, 210, 1180, 175, 860, 140, 620, 110];
+    freqs.forEach((f, i) => {
+      this.tone(f, 0.065, 'sawtooth', 0.11, i * 0.045);
+    });
+  },
   wrong() {
     this.tone(175, 0.11, 'sawtooth', 0.08, 0);
     this.tone(140, 0.15, 'sawtooth', 0.08, 0.1);
@@ -1022,83 +1712,111 @@ const AudioFX = {
 };
 
 /* ==========================================================================
-   2. 10 PURCHASABLE PLAYER SKINS (1000 COINS EACH) + STARTER SKIN
+   3. 20 PURCHASABLE PLAYER SKINS (10 x 1000 🪙 + 10 NEW x 2000 🪙) + STARTER
    ========================================================================== */
 const SKINS = [
-  { id: 0,  name: "Əsas Qəhrəman",  price: 0,    hat: "#2563eb", visor: "#facc15", face: "#fed7aa", eye: "#0f172a", body: "#3b82f6", arms: "#facc15", btn: "#facc15", legs: "#1e3a8a", shoes: "#7c2d12", extra: "none" },
-  { id: 1,  name: "Qızıl Cəngavər", price: 1000, hat: "#facc15", visor: "#fef08a", face: "#cbd5e1", eye: "#0f172a", body: "#eab308", arms: "#ca8a04", btn: "#ffffff", legs: "#a16207", shoes: "#713f12", extra: "plume" },
-  { id: 2,  name: "Kiber Robot",    price: 1000, hat: "#64748b", visor: "#38bdf8", face: "#94a3b8", eye: "#38bdf8", body: "#475569", arms: "#38bdf8", btn: "#facc15", legs: "#334155", shoes: "#0f172a", extra: "antenna" },
-  { id: 3,  name: "Kölgə Ninja",    price: 1000, hat: "#0f172a", visor: "#ef4444", face: "#fed7aa", eye: "#0f172a", body: "#1e293b", arms: "#0f172a", btn: "#ef4444", legs: "#020617", shoes: "#334155", extra: "scarf" },
-  { id: 4,  name: "Kosmonavt",      price: 1000, hat: "#f8fafc", visor: "#f59e0b", face: "#f59e0b", eye: "#fef08a", body: "#e2e8f0", arms: "#cbd5e1", btn: "#ef4444", legs: "#94a3b8", shoes: "#475569", extra: "pack" },
-  { id: 5,  name: "Atəş Sehrbazı",  price: 1000, hat: "#7e22ce", visor: "#facc15", face: "#fed7aa", eye: "#f97316", body: "#9333ea", arms: "#f97316", btn: "#facc15", legs: "#581c87", shoes: "#451a03", extra: "wizard" },
-  { id: 6,  name: "Neon Haker",     price: 1000, hat: "#090d16", visor: "#22c55e", face: "#cbd5e1", eye: "#4ade80", body: "#111827", arms: "#22c55e", btn: "#4ade80", legs: "#030712", shoes: "#15803d", extra: "visor" },
-  { id: 7,  name: "Buz Döyüşçüsü",  price: 1000, hat: "#38bdf8", visor: "#e0f2fe", face: "#fde68a", eye: "#0284c7", body: "#0ea5e9", arms: "#bae6fd", btn: "#ffffff", legs: "#0369a1", shoes: "#0c4a6e", extra: "crown_ice" },
-  { id: 8,  name: "Elektro Usta",   price: 1000, hat: "#facc15", visor: "#f97316", face: "#fed7aa", eye: "#0f172a", body: "#f97316", arms: "#38bdf8", btn: "#fef08a", legs: "#1e3a8a", shoes: "#1e293b", extra: "bolt" },
-  { id: 9,  name: "Meşə Ovçusu",    price: 1000, hat: "#15803d", visor: "#86efac", face: "#fed7aa", eye: "#14532d", body: "#166534", arms: "#854d0e", btn: "#facc15", legs: "#713f12", shoes: "#451a03", extra: "feather" },
-  { id: 10, name: "Kral Qəhrəman",  price: 1000, hat: "#facc15", visor: "#ef4444", face: "#fed7aa", eye: "#0f172a", body: "#dc2626", arms: "#facc15", btn: "#fef08a", legs: "#7f1d1d", shoes: "#450a0a", extra: "crown" }
+  // Starter
+  { id: 0,  names: { az: "Əsas Qəhrəman", en: "Classic Hero", tr: "Ana Kahraman", ru: "Главный Герой" }, price: 0,    hat: "#2563eb", visor: "#facc15", face: "#fed7aa", eye: "#0f172a", body: "#3b82f6", arms: "#facc15", btn: "#facc15", legs: "#1e3a8a", shoes: "#7c2d12", extra: "none" },
+  // Tier 1: 10 Skins x 1000 Gold
+  { id: 1,  names: { az: "Qızıl Cəngavər", en: "Golden Knight", tr: "Altın Şövalye", ru: "Золотой Рыцарь" }, price: 1000, hat: "#facc15", visor: "#fef08a", face: "#cbd5e1", eye: "#0f172a", body: "#eab308", arms: "#ca8a04", btn: "#ffffff", legs: "#a16207", shoes: "#713f12", extra: "plume" },
+  { id: 2,  names: { az: "Kiber Robot", en: "Cyber Robot", tr: "Siber Robot", ru: "Кибер Робот" }, price: 1000, hat: "#64748b", visor: "#38bdf8", face: "#94a3b8", eye: "#38bdf8", body: "#475569", arms: "#38bdf8", btn: "#facc15", legs: "#334155", shoes: "#0f172a", extra: "antenna" },
+  { id: 3,  names: { az: "Kölgə Ninja", en: "Shadow Ninja", tr: "Gölge Ninja", ru: "Теневой Ниндзя" }, price: 1000, hat: "#0f172a", visor: "#ef4444", face: "#fed7aa", eye: "#0f172a", body: "#1e293b", arms: "#0f172a", btn: "#ef4444", legs: "#020617", shoes: "#334155", extra: "scarf" },
+  { id: 4,  names: { az: "Kosmonavt", en: "Astronaut", tr: "Astronot", ru: "Космонавт" }, price: 1000, hat: "#f8fafc", visor: "#f59e0b", face: "#f59e0b", eye: "#fef08a", body: "#e2e8f0", arms: "#cbd5e1", btn: "#ef4444", legs: "#94a3b8", shoes: "#475569", extra: "pack" },
+  { id: 5,  names: { az: "Atəş Sehrbazı", en: "Fire Wizard", tr: "Ateş Büyücüsü", ru: "Маг Огня" }, price: 1000, hat: "#7e22ce", visor: "#facc15", face: "#fed7aa", eye: "#f97316", body: "#9333ea", arms: "#f97316", btn: "#facc15", legs: "#581c87", shoes: "#451a03", extra: "wizard" },
+  { id: 6,  names: { az: "Neon Haker", en: "Neon Hacker", tr: "Neon Hacker", ru: "Неон Хакер" }, price: 1000, hat: "#090d16", visor: "#22c55e", face: "#cbd5e1", eye: "#4ade80", body: "#111827", arms: "#22c55e", btn: "#4ade80", legs: "#030712", shoes: "#15803d", extra: "visor" },
+  { id: 7,  names: { az: "Buz Döyüşçüsü", en: "Ice Warrior", tr: "Buz Savaşçısı", ru: "Ледяной Воин" }, price: 1000, hat: "#38bdf8", visor: "#e0f2fe", face: "#fde68a", eye: "#0284c7", body: "#0ea5e9", arms: "#bae6fd", btn: "#ffffff", legs: "#0369a1", shoes: "#0c4a6e", extra: "crown_ice" },
+  { id: 8,  names: { az: "Elektro Usta", en: "Electro Master", tr: "Elektro Usta", ru: "Электро Мастер" }, price: 1000, hat: "#facc15", visor: "#f97316", face: "#fed7aa", eye: "#0f172a", body: "#f97316", arms: "#38bdf8", btn: "#fef08a", legs: "#1e3a8a", shoes: "#1e293b", extra: "bolt" },
+  { id: 9,  names: { az: "Meşə Ovçusu", en: "Forest Ranger", tr: "Orman Avcısı", ru: "Лесной Охотник" }, price: 1000, hat: "#15803d", visor: "#86efac", face: "#fed7aa", eye: "#14532d", body: "#166534", arms: "#854d0e", btn: "#facc15", legs: "#713f12", shoes: "#451a03", extra: "feather" },
+  { id: 10, names: { az: "Kral Qəhrəman", en: "Royal Hero", tr: "Kral Kahraman", ru: "Королевский Герой" }, price: 1000, hat: "#facc15", visor: "#ef4444", face: "#fed7aa", eye: "#0f172a", body: "#dc2626", arms: "#facc15", btn: "#fef08a", legs: "#7f1d1d", shoes: "#450a0a", extra: "crown" },
+  // Tier 2 (NEW): 10 Elite Skins x 2000 Gold
+  { id: 11, names: { az: "Əjdaha Cəngavəri", en: "Dragon Knight", tr: "Ejderha Şövalyesi", ru: "Рыцарь Дракона" }, price: 2000, hat: "#991b1b", visor: "#facc15", face: "#fed7aa", eye: "#facc15", body: "#b91c1c", arms: "#f59e0b", btn: "#fef08a", legs: "#450a0a", shoes: "#1c1917", extra: "dragon" },
+  { id: 12, names: { az: "Samuray Ustası", en: "Samurai Master", tr: "Samuray Ustası", ru: "Мастер Самурай" }, price: 2000, hat: "#1e293b", visor: "#ef4444", face: "#fed7aa", eye: "#0f172a", body: "#dc2626", arms: "#1e293b", btn: "#facc15", legs: "#0f172a", shoes: "#78350f", extra: "samurai" },
+  { id: 13, names: { az: "Qızıl Firon", en: "Golden Pharaoh", tr: "Altın Firavun", ru: "Золотой Фараон" }, price: 2000, hat: "#eab308", visor: "#06b6d4", face: "#f59e0b", eye: "#0f172a", body: "#fef08a", arms: "#06b6d4", btn: "#0284c7", legs: "#ca8a04", shoes: "#713f12", extra: "pharaoh" },
+  { id: 14, names: { az: "Kvant Mələyi", en: "Quantum Angel", tr: "Kuantum Meleği", ru: "Квантовый Ангел" }, price: 2000, hat: "#f8fafc", visor: "#38bdf8", face: "#ffedd5", eye: "#0284c7", body: "#ffffff", arms: "#bae6fd", btn: "#facc15", legs: "#e2e8f0", shoes: "#38bdf8", extra: "angel" },
+  { id: 15, names: { az: "Kristal Qolem", en: "Crystal Golem", tr: "Kristal Golem", ru: "Кристальный Голем" }, price: 2000, hat: "#c026d3", visor: "#f0abfc", face: "#e879f9", eye: "#ffffff", body: "#86198f", arms: "#d946ef", btn: "#38bdf8", legs: "#4a044e", shoes: "#1e1b4b", extra: "crystal" },
+  { id: 16, names: { az: "Səma Qulduru", en: "Sky Pirate", tr: "Gök Korsanı", ru: "Небесный Пират" }, price: 2000, hat: "#18181b", visor: "#facc15", face: "#fed7aa", eye: "#090d16", body: "#be123c", arms: "#f8fafc", btn: "#facc15", legs: "#27272a", shoes: "#090d16", extra: "pirate" },
+  { id: 17, names: { az: "Plazma Titan", en: "Plasma Titan", tr: "Plazma Titan", ru: "Плазменный Титан" }, price: 2000, hat: "#312e81", visor: "#ec4899", face: "#4c1d95", eye: "#f472b6", body: "#1e1b4b", arms: "#ec4899", btn: "#38bdf8", legs: "#0f172a", shoes: "#831843", extra: "titan" },
+  { id: 18, names: { az: "Zümrüd Druid", en: "Emerald Druid", tr: "Zümrüt Druid", ru: "Изумрудный Друид" }, price: 2000, hat: "#065f46", visor: "#34d399", face: "#fed7aa", eye: "#059669", body: "#047857", arms: "#a7f3d0", btn: "#facc15", legs: "#064e3b", shoes: "#451a03", extra: "druid" },
+  { id: 19, names: { az: "Qalaktika Lordu", en: "Galaxy Lord", tr: "Galaksi Lordu", ru: "Лорд Галактики" }, price: 2000, hat: "#1e1b4b", visor: "#818cf8", face: "#c7d2fe", eye: "#38bdf8", body: "#312e81", arms: "#6366f1", btn: "#facc15", legs: "#0f172a", shoes: "#1e1b4b", extra: "galaxy" },
+  { id: 20, names: { az: "Məntiq İmperatoru", en: "Logic Emperor", tr: "Mantık İmparatoru", ru: "Император Логики" }, price: 2000, hat: "#facc15", visor: "#a855f7", face: "#fed7aa", eye: "#7e22ce", body: "#581c87", arms: "#facc15", btn: "#38bdf8", legs: "#3b0764", shoes: "#facc15", extra: "emperor" }
 ];
 
+function getSkinName(skin) {
+  return (skin.names && skin.names[Save.lang]) || skin.names.az;
+}
+
 /* ==========================================================================
-   3. WORLD THEMES & 50-LEVEL BOOLEAN LOGIC CURRICULUM
+   4. WORLD THEMES & 50-LEVEL BOOLEAN LOGIC CURRICULUM
    ========================================================================== */
 const WORLDS = [
-  {
-    id: 0, name: "1. Yaşıl Çəmənlik",
-    skyTop: "#38bdf8", skyBot: "#bae6fd", hill: "#22c55e", hillDark: "#15803d",
-    ground: "#854d0e", grass: "#22c55e", brick: "#b45309", stars: false
-  },
-  {
-    id: 1, name: "2. Gərginlik Mağarası",
-    skyTop: "#0f172a", skyBot: "#1e1b4b", hill: "#312e81", hillDark: "#1e1b4b",
-    ground: "#334155", grass: "#6366f1", brick: "#475569", stars: true
-  },
-  {
-    id: 2, name: "3. Məntiq Qalası",
-    skyTop: "#7c2d12", skyBot: "#f97316", hill: "#9a3412", hillDark: "#431407",
-    ground: "#57534e", grass: "#f59e0b", brick: "#78716c", stars: false
-  },
-  {
-    id: 3, name: "4. Elektrik Zavodu",
-    skyTop: "#042f2e", skyBot: "#115e59", hill: "#134e4a", hillDark: "#0f2928",
-    ground: "#1e293b", grass: "#14b8a6", brick: "#0f766e", stars: false
-  },
-  {
-    id: 4, name: "5. Məntiq Zirvəsi",
-    skyTop: "#020617", skyBot: "#3b0764", hill: "#4c1d95", hillDark: "#2e1065",
-    ground: "#1e1b4b", grass: "#a855f7", brick: "#581c87", stars: true
-  }
+  { id: 0, skyTop: "#38bdf8", skyBot: "#bae6fd", hill: "#22c55e", hillDark: "#15803d", ground: "#854d0e", grass: "#22c55e", brick: "#b45309", stars: false },
+  { id: 1, skyTop: "#0f172a", skyBot: "#1e1b4b", hill: "#312e81", hillDark: "#1e1b4b", ground: "#334155", grass: "#6366f1", brick: "#475569", stars: true },
+  { id: 2, skyTop: "#7c2d12", skyBot: "#f97316", hill: "#9a3412", hillDark: "#431407", ground: "#57534e", grass: "#f59e0b", brick: "#78716c", stars: false },
+  { id: 3, skyTop: "#042f2e", skyBot: "#115e59", hill: "#134e4a", hillDark: "#0f2928", ground: "#1e293b", grass: "#14b8a6", brick: "#0f766e", stars: false },
+  { id: 4, skyTop: "#020617", skyBot: "#3b0764", hill: "#4c1d95", hillDark: "#2e1065", ground: "#1e1b4b", grass: "#a855f7", brick: "#581c87", stars: true }
 ];
 
 const LEVELS_DATA = [{"level": 1, "world": 0, "topic": "Təlim (Qapısız)", "intro": "1-ci səviyyə: Qapı yoxdur! Hərəkət et, qızılları topla, böcəkləri əz və bayrağa çat!", "gates": []}, {"level": 2, "world": 0, "topic": "İnvertor (DEYİL)", "intro": "2-ci səviyyə: 1-ci qapıda düyməyə bas, 2-ci qapıda elementi boşluğa qoy!", "gates": [{"mode": "switch", "title": "Qapı 1: İnvertor düyməsi", "inputs": [{"id": "A", "val": 1, "y": 105}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 275, "y": 105}]}, {"mode": "place", "title": "Qapı 2: İnvertoru yerləşdir", "inputs": [{"id": "A", "val": 0, "y": 105}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 1, "in": ["A"], "x": 275, "y": 105}]}]}, {"level": 3, "world": 0, "topic": "Dizyunktor (VƏ YA)", "gates": [{"mode": "switch", "title": "Qapı 1: Dizyunktor (1)", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 275, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Dizyunktoru yerləşdir", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 275, "y": 105}]}]}, {"level": 4, "world": 0, "topic": "Konyunktor (VƏ)", "gates": [{"mode": "switch", "title": "Qapı 1: Konyunktor (&)", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 275, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Konyunktor + İnvertor", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 215, "y": 105}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 365, "y": 105}]}]}, {"level": 5, "world": 0, "topic": "Konyunktor və İnversiya", "gates": [{"mode": "switch", "title": "Qapı 1: İnversiyalı Konyunktor", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 215, "y": 105}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 365, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Düzgün elementi tap", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 275, "y": 105}]}]}, {"level": 6, "world": 0, "topic": "Dizyunktor və İnversiya", "gates": [{"mode": "switch", "title": "Qapı 1: İnversiyalı Dizyunktor", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 215, "y": 105}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 365, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Dövrəni tamamla", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 215, "y": 105}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 365, "y": 105}]}]}, {"level": 7, "world": 0, "topic": "Girişdə İnvertor", "gates": [{"mode": "switch", "title": "Qapı 1: (DEYİL A) VƏ B", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 190, "y": 65}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "B"], "x": 350, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Girişdə İnvertor", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 190, "y": 65}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["g1", "B"], "x": 350, "y": 105}]}]}, {"level": 8, "world": 0, "topic": "Aşağı Qolda İnvertor", "gates": [{"mode": "switch", "title": "Qapı 1: A VƏ (DEYİL B)", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 190, "y": 145}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 350, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Elementi seç", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 190, "y": 145}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "g1"], "x": 350, "y": 105}]}]}, {"level": 9, "world": 0, "topic": "Qoşa İnvertor", "gates": [{"mode": "switch", "title": "Qapı 1: İki İnvertor + Konyunktor", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 185, "y": 65}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 185, "y": 145}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 350, "y": 105}]}, {"mode": "place", "title": "Qapı 2: İki boşluqlu dövrə", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 1, "in": ["A"], "x": 185, "y": 65}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 185, "y": 145}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g1", "g2"], "x": 350, "y": 105}]}]}, {"level": 10, "world": 0, "topic": "1-ci Dünya Finalı (5 Qapı)", "intro": "10-cu Səviyyə (FİNAL): Bu səviyyədə 5 elektrik qapısı var!", "gates": [{"mode": "switch", "title": "Final Qapı 1/5: İnvertor", "inputs": [{"id": "A", "val": 1, "y": 105}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 275, "y": 105}]}, {"mode": "place", "title": "Final Qapı 2/5: Dizyunktor", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 275, "y": 105}]}, {"mode": "switch", "title": "Final Qapı 3/5: Konyunktor + İnvertor", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 190, "y": 145}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 350, "y": 105}]}, {"mode": "place", "title": "Final Qapı 4/5: Konyunktorun İnversiyası", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 215, "y": 105}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 365, "y": 105}]}, {"mode": "switch", "title": "Final Qapı 5/5: Qoşa İnversiya", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 185, "y": 65}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 185, "y": 145}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 350, "y": 105}]}]}, {"level": 11, "world": 1, "topic": "3 Girişli Konyunktor", "gates": [{"mode": "switch", "title": "Qapı 1: Üçlü Konyunktor", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 200, "y": 72}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "C"], "x": 355, "y": 118}]}, {"mode": "place", "title": "Qapı 2: 2 Mərhələli Dövrə", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 200, "y": 72}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "C"], "x": 355, "y": 118}]}], "intro": "2-ci Dünya: 3 girişli elektrik dövrələri başlayır!"}, {"level": 12, "world": 1, "topic": "Dizyunktor + Konyunktor", "gates": [{"mode": "switch", "title": "Qapı 1: (A VƏ YA B) VƏ C", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 200, "y": 72}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "C"], "x": 355, "y": 118}]}, {"mode": "place", "title": "Qapı 2: Çıxış Elementini Tap", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 200, "y": 72}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["g1", "C"], "x": 355, "y": 118}]}]}, {"level": 13, "world": 1, "topic": "C Girişində İnvertor", "gates": [{"mode": "switch", "title": "Qapı 1: (A VƏ B) VƏ (DEYİL C)", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 195, "y": 72}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 195, "y": 162}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 355, "y": 118}]}, {"mode": "place", "title": "Qapı 2: İnvertorlu Çıxış", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 195, "y": 72}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 195, "y": 162}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g1", "g2"], "x": 355, "y": 118}]}]}, {"level": 14, "world": 1, "topic": "A Girişində İnvertor", "gates": [{"mode": "switch", "title": "Qapı 1: (DEYİL A) VƏ (B VƏ C)", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 195, "y": 48}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["B", "C"], "x": 195, "y": 136}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 355, "y": 96}]}, {"mode": "place", "title": "Qapı 2: İki Boşluqlu Dövrə", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 195, "y": 48}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["B", "C"], "x": 195, "y": 136}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g1", "g2"], "x": 355, "y": 96}]}]}, {"level": 15, "world": 1, "topic": "Son Çıxışda İnvertor", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL((A VƏ YA B) VƏ YA C)", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 175, "y": 72}, {"id": "g2", "type": "OR", "slot": false, "arity": 2, "in": ["g1", "C"], "x": 300, "y": 118}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 415, "y": 118}]}, {"mode": "place", "title": "Qapı 2: Çıxışda İnvertor", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 175, "y": 72}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "C"], "x": 300, "y": 118}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 415, "y": 118}]}]}, {"level": 16, "world": 1, "topic": "Orta Qolda İnvertor", "gates": [{"mode": "switch", "title": "Qapı 1: (A VƏ DEYİL B) VƏ C", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 165, "y": 105}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 285, "y": 76}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "C"], "x": 405, "y": 118}]}, {"mode": "place", "title": "Qapı 2: 2 Boşluğu Doldur", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 165, "y": 105}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "g1"], "x": 285, "y": 76}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g2", "C"], "x": 405, "y": 118}]}]}, {"level": 17, "world": 1, "topic": "İnversiyalı Qol", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(A VƏ YA B) VƏ C", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 72}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 280, "y": 72}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "C"], "x": 400, "y": 116}]}, {"mode": "place", "title": "Qapı 2: Zənciri Tamamla", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 165, "y": 72}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 280, "y": 72}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "C"], "x": 400, "y": 116}]}]}, {"level": 18, "world": 1, "topic": "İki İnvertorlu 3 Giriş", "gates": [{"mode": "switch", "title": "Qapı 1: (DEYİL A) VƏ B VƏ (DEYİL C)", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 160, "y": 48}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 160, "y": 162}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "B"], "x": 285, "y": 76}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g2"], "x": 405, "y": 118}]}, {"mode": "place", "title": "Qapı 2: İnvertorlu Zəncir", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 160, "y": 48}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 160, "y": 162}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g1", "B"], "x": 285, "y": 76}, {"id": "g4", "type": null, "slot": true, "arity": 2, "in": ["g3", "g2"], "x": 405, "y": 118}]}]}, {"level": 19, "world": 1, "topic": "Birləşmiş İnversiya", "gates": [{"mode": "switch", "title": "Qapı 1: A VƏ DEYİL(B VƏ YA C)", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["B", "C"], "x": 165, "y": 134}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 280, "y": 134}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g2"], "x": 400, "y": 94}]}, {"mode": "place", "title": "Qapı 2: Düzgün Sxemi Qur", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["B", "C"], "x": 165, "y": 134}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 280, "y": 134}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g2"], "x": 400, "y": 94}]}]}, {"level": 20, "world": 1, "topic": "2-ci Dünya Finalı (5 Qapı)", "intro": "20-ci Səviyyə (FİNAL): 5 üç-girişli qapını elektrik cərəyanı ilə aç!", "gates": [{"mode": "switch", "title": "Final Qapı 1/5: Üçlü Konyunktor", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 200, "y": 72}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "C"], "x": 355, "y": 118}]}, {"mode": "place", "title": "Final Qapı 2/5: 2 Boşluq", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 195, "y": 72}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 195, "y": 162}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g1", "g2"], "x": 355, "y": 118}]}, {"mode": "switch", "title": "Final Qapı 3/5: DEYİL(A | B) & C", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 72}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 280, "y": 72}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "C"], "x": 400, "y": 116}]}, {"mode": "place", "title": "Final Qapı 4/5: Çıxış İnversiyası", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 175, "y": 72}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "C"], "x": 300, "y": 118}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 415, "y": 118}]}, {"mode": "switch", "title": "Final Qapı 5/5: İki İnvertor", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 160, "y": 48}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 160, "y": 162}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "B"], "x": 285, "y": 76}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g2"], "x": 405, "y": 118}]}]}, {"level": 21, "world": 2, "topic": "4 Girişli Dövrə", "gates": [{"mode": "switch", "title": "Qapı 1: (A & B) & (C & D)", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 200, "y": 57}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["C", "D"], "x": 200, "y": 153}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 365, "y": 105}]}, {"mode": "place", "title": "Qapı 2: İki Qolun Birləşməsi", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 200, "y": 57}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 200, "y": 153}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 365, "y": 105}]}], "intro": "3-cü Dünya: Məntiq Qalası! 4 girişli və 2 boşluqlu dövrələr!"}, {"level": 22, "world": 2, "topic": "Paralel Qollar", "gates": [{"mode": "switch", "title": "Qapı 1: (A | B) & (C & D)", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 200, "y": 57}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["C", "D"], "x": 200, "y": 153}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 365, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Çıxışda İnvertor", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 175, "y": 57}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 175, "y": 153}, {"id": "g3", "type": "OR", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 305, "y": 105}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 415, "y": 105}]}]}, {"level": 23, "world": 2, "topic": "Tək Qolda İnvertor", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(A | B) & (C & D)", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 175, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 285, "y": 57}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["C", "D"], "x": 200, "y": 153}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Yuxarı Qolda İnvertor", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 175, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 285, "y": 57}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 200, "y": 153}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 405, "y": 105}]}]}, {"level": 24, "world": 2, "topic": "Aşağı Qolda İnvertor", "gates": [{"mode": "switch", "title": "Qapı 1: (A & B) & DEYİL(C | D)", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 200, "y": 57}, {"id": "g2", "type": "OR", "slot": false, "arity": 2, "in": ["C", "D"], "x": 175, "y": 153}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 285, "y": 153}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Aşağı Qol İnversiyası", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 200, "y": 57}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 175, "y": 153}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 285, "y": 153}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 405, "y": 105}]}]}, {"level": 25, "world": 2, "topic": "Qoşa İnversiya Şəbəkəsi", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(A | B) & DEYİL(C | D)", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 170, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 285, "y": 57}, {"id": "g3", "type": "OR", "slot": false, "arity": 2, "in": ["C", "D"], "x": 170, "y": 153}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 285, "y": 153}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g4"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Qapı 2: İki İnvertorlu Seçim", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 170, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 285, "y": 57}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 170, "y": 153}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 285, "y": 153}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g4"], "x": 405, "y": 105}]}]}, {"level": 26, "world": 2, "topic": "Çarpaz Giriş (Budaqlanma)", "gates": [{"mode": "switch", "title": "Qapı 1: (A | B) & DEYİL(A & B)", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 185, "y": 58}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 185, "y": 152}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 295, "y": 152}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Budaqlanan 2 Boşluq", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 185, "y": 58}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 185, "y": 152}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 295, "y": 152}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 405, "y": 105}]}]}, {"level": 27, "world": 2, "topic": "Ekvivalentlik Dövrəsi", "gates": [{"mode": "switch", "title": "Qapı 1: (A & B) | (DEYİL A & DEYİL B)", "inputs": [{"id": "A", "val": 1, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 230, "y": 52}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 155, "y": 125}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 155, "y": 175}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 280, "y": 150}, {"id": "g5", "type": "OR", "slot": false, "arity": 2, "in": ["g1", "g4"], "x": 405, "y": 100}]}, {"mode": "place", "title": "Qapı 2: 2 Boşluqlu Budaqlanma", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 1, "y": 145}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 185, "y": 58}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 295, "y": 58}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 185, "y": 152}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 405, "y": 105}]}]}, {"level": 28, "world": 2, "topic": "Üç Qatlı Zəncir", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL((A & B) | (C & D))", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 170, "y": 57}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["C", "D"], "x": 170, "y": 153}, {"id": "g3", "type": "OR", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 295, "y": 105}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 410, "y": 105}]}, {"mode": "place", "title": "Qapı 2: 3 Boşluqlu İlk Sınaq", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 170, "y": 57}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 170, "y": 153}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g1", "g2"], "x": 295, "y": 105}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 410, "y": 105}]}]}, {"level": 29, "world": 2, "topic": "Giriş İnversiyalı 4-lü", "gates": [{"mode": "switch", "title": "Qapı 1: (DEYİL A & B) & (C & DEYİL D)", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 150, "y": 34}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 150, "y": 176}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "B"], "x": 275, "y": 58}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["C", "g2"], "x": 275, "y": 152}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Kənar İnvertorlar", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 150, "y": 34}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 150, "y": 176}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g1", "B"], "x": 275, "y": 58}, {"id": "g4", "type": null, "slot": true, "arity": 2, "in": ["C", "g2"], "x": 275, "y": 152}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 405, "y": 105}]}]}, {"level": 30, "world": 2, "topic": "3-cü Dünya Finalı (5 Qapı)", "intro": "30-cu Səviyyə (FİNAL): 5 qala qapısını ardıcıl aç!", "gates": [{"mode": "switch", "title": "Final Qapı 1/5: (A | B) & DEYİL(A & B)", "inputs": [{"id": "A", "val": 0, "y": 65}, {"id": "B", "val": 0, "y": 145}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 185, "y": 58}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 185, "y": 152}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 295, "y": 152}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Final Qapı 2/5: 2 Boşluq", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 200, "y": 57}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 200, "y": 153}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 365, "y": 105}]}, {"mode": "switch", "title": "Final Qapı 3/5: DEYİL(A | B) & (C & D)", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 175, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 285, "y": 57}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["C", "D"], "x": 200, "y": 153}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Final Qapı 4/5: Qoşa İnvertor", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 170, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 285, "y": 57}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 170, "y": 153}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 285, "y": 153}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g4"], "x": 405, "y": 105}]}, {"mode": "switch", "title": "Final Qapı 5/5: 4 Girişli Kilid", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 150, "y": 34}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 150, "y": 176}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "B"], "x": 275, "y": 58}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["C", "g2"], "x": 275, "y": 152}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 405, "y": 105}]}]}, {"level": 31, "world": 3, "topic": "İç İnvertorlar", "gates": [{"mode": "switch", "title": "Qapı 1: (A & DEYİL B) & (DEYİL C & D)", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 150, "y": 80}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 150, "y": 130}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 275, "y": 58}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "D"], "x": 275, "y": 152}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Qapı 2: İç İnvertorlu Seçim", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 150, "y": 80}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 150, "y": 130}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["A", "g1"], "x": 275, "y": 58}, {"id": "g4", "type": null, "slot": true, "arity": 2, "in": ["g2", "D"], "x": 275, "y": 152}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 405, "y": 105}]}], "intro": "4-cü Dünya: Elektrik Zavodu! Dərin 4 girişli dövrələr səni gözləyir!"}, {"level": 32, "world": 3, "topic": "Tərs Çıxışlı Şəbəkə", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL((A | B) | (C & D))", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 170, "y": 57}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["C", "D"], "x": 170, "y": 153}, {"id": "g3", "type": "OR", "slot": false, "arity": 2, "in": ["g1", "g2"], "x": 295, "y": 105}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 410, "y": 105}]}, {"mode": "place", "title": "Qapı 2: 3 Boşluqlu Dövrə", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 170, "y": 57}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 170, "y": 153}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g1", "g2"], "x": 295, "y": 105}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 410, "y": 105}]}]}, {"level": 33, "world": 3, "topic": "Paylanan Siqnal (Budaq)", "gates": [{"mode": "switch", "title": "Qapı 1: (A & B) & (B & DEYİL C)", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 155, "y": 162}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 270, "y": 62}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["B", "g1"], "x": 270, "y": 148}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 400, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Orta Siqnal Budağı", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 155, "y": 162}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 270, "y": 62}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["B", "g1"], "x": 270, "y": 148}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 400, "y": 105}]}]}, {"level": 34, "world": 3, "topic": "De Morgan Qanunu I", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(A | B) & DEYİL C", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 72}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 275, "y": 72}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 275, "y": 162}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 400, "y": 114}]}, {"mode": "place", "title": "Qapı 2: İki Qatlı İnversiya", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 165, "y": 72}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 275, "y": 72}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 275, "y": 162}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 400, "y": 114}]}]}, {"level": 35, "world": 3, "topic": "De Morgan Qanunu II", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(A & B) & (DEYİL C & D)", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 280, "y": 57}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 165, "y": 130}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "D"], "x": 280, "y": 153}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g4"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Qapı 2: 2 Boşluq + 2 İnvertor", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 165, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 280, "y": 57}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 165, "y": 130}, {"id": "g4", "type": null, "slot": true, "arity": 2, "in": ["g3", "D"], "x": 280, "y": 153}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g4"], "x": 405, "y": 105}]}]}, {"level": 36, "world": 3, "topic": "Kaskad Dövrə", "gates": [{"mode": "switch", "title": "Qapı 1: ((A & DEYİL B) & C) & DEYİL D", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 145, "y": 80}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 240, "y": 58}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "C"], "x": 330, "y": 96}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 240, "y": 176}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 425, "y": 134}]}, {"mode": "place", "title": "Qapı 2: Kaskad Boşluqlar", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 145, "y": 80}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "g1"], "x": 240, "y": 58}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g2", "C"], "x": 330, "y": 96}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 240, "y": 176}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 425, "y": 134}]}]}, {"level": 37, "world": 3, "topic": "Budaqlanan 3 Giriş", "gates": [{"mode": "switch", "title": "Qapı 1: (A | B) & DEYİL(B & C)", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 180, "y": 62}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["B", "C"], "x": 180, "y": 148}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 295, "y": 148}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Qapı 2: 2 Boşluq + Budaq", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 180, "y": 62}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["B", "C"], "x": 180, "y": 148}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 295, "y": 148}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 405, "y": 105}]}]}, {"level": 38, "world": 3, "topic": "İkiqat Tərs Şəbəkə", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(DEYİL A | B) & DEYİL(C | DEYİL D)", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 140, "y": 34}, {"id": "g2", "type": "OR", "slot": false, "arity": 2, "in": ["g1", "B"], "x": 235, "y": 58}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 325, "y": 58}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 140, "y": 176}, {"id": "g5", "type": "OR", "slot": false, "arity": 2, "in": ["C", "g4"], "x": 235, "y": 152}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 325, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g6"], "x": 425, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Simmetrik Boşluqlar", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 140, "y": 34}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["g1", "B"], "x": 235, "y": 58}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 325, "y": 58}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 140, "y": 176}, {"id": "g5", "type": null, "slot": true, "arity": 2, "in": ["C", "g4"], "x": 235, "y": 152}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 325, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g6"], "x": 425, "y": 105}]}]}, {"level": 39, "world": 3, "topic": "3 Boşluqlu Zavod Kilidi", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(A & DEYİL B) & (DEYİL C & D)", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 145, "y": 80}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 240, "y": 58}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 330, "y": 58}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 145, "y": 130}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "D"], "x": 265, "y": 152}, {"id": "g6", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g5"], "x": 425, "y": 105}]}, {"mode": "place", "title": "Qapı 2: 3 Element Yerləşdir", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 165, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 280, "y": 57}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 165, "y": 153}, {"id": "g4", "type": null, "slot": true, "arity": 2, "in": ["g2", "g3"], "x": 405, "y": 105}]}]}, {"level": 40, "world": 3, "topic": "4-cü Dünya Finalı (5 Qapı)", "intro": "40-cı Səviyyə (FİNAL): Zavodun 5 əsas elektrik qapısını aç!", "gates": [{"mode": "switch", "title": "Final Qapı 1/5: İç İnvertorlar", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 150, "y": 80}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 150, "y": 130}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 275, "y": 58}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "D"], "x": 275, "y": 152}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Final Qapı 2/5: Budaq + İnvertor", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 180, "y": 62}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["B", "C"], "x": 180, "y": 148}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 295, "y": 148}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 405, "y": 105}]}, {"mode": "switch", "title": "Final Qapı 3/5: De Morgan II", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 280, "y": 57}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 165, "y": 130}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "D"], "x": 280, "y": 153}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g4"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Final Qapı 4/5: Simmetrik 2 Boşluq", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 140, "y": 34}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["g1", "B"], "x": 235, "y": 58}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 325, "y": 58}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 140, "y": 176}, {"id": "g5", "type": null, "slot": true, "arity": 2, "in": ["C", "g4"], "x": 235, "y": 152}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 325, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g6"], "x": 425, "y": 105}]}, {"mode": "switch", "title": "Final Qapı 5/5: 7 Elementli Kilid", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 140, "y": 34}, {"id": "g2", "type": "OR", "slot": false, "arity": 2, "in": ["g1", "B"], "x": 235, "y": 58}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 325, "y": 58}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 140, "y": 176}, {"id": "g5", "type": "OR", "slot": false, "arity": 2, "in": ["C", "g4"], "x": 235, "y": 152}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 325, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g6"], "x": 425, "y": 105}]}]}, {"level": 41, "world": 4, "topic": "Çarpaz 3 Giriş", "gates": [{"mode": "switch", "title": "Qapı 1: (A | B) & DEYİL(A & B) & C", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 52}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 118}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 265, "y": 118}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 345, "y": 76}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "C"], "x": 430, "y": 122}]}, {"mode": "place", "title": "Qapı 2: 3 Boşluq (İnvertor + 2 Element)", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 165, "y": 52}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 165, "y": 118}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 265, "y": 118}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 345, "y": 76}, {"id": "g5", "type": null, "slot": true, "arity": 1, "in": ["C"], "x": 265, "y": 172}, {"id": "g6", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "g5"], "x": 430, "y": 122}]}], "intro": "5-ci Dünya: Məntiq Zirvəsi! Ən çətin çoxmərhələli elektrik dövrələri!"}, {"level": 42, "world": 4, "topic": "İkiqat Çarpaz", "gates": [{"mode": "switch", "title": "Qapı 1: ((A | B) & DEYİL(A & B)) & DEYİL C", "inputs": [{"id": "A", "val": 1, "y": 48}, {"id": "B", "val": 1, "y": 105}, {"id": "C", "val": 1, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 52}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 118}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 265, "y": 118}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 345, "y": 76}, {"id": "g5", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 265, "y": 172}, {"id": "g6", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "g5"], "x": 430, "y": 122}]}, {"mode": "place", "title": "Qapı 2: 3 Boşluqlu Çətin Dövrə", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 160, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 255, "y": 57}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 160, "y": 130}, {"id": "g4", "type": null, "slot": true, "arity": 2, "in": ["g3", "D"], "x": 255, "y": 153}, {"id": "g5", "type": null, "slot": true, "arity": 2, "in": ["g2", "g4"], "x": 360, "y": 105}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 440, "y": 105}]}]}, {"level": 43, "world": 4, "topic": "4 Girişli Çarpaz", "gates": [{"mode": "switch", "title": "Qapı 1: (A & DEYİL B) & (DEYİL C & D)", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 145, "y": 80}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 245, "y": 57}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 145, "y": 130}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "D"], "x": 245, "y": 153}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g4"], "x": 350, "y": 105}, {"id": "g6", "type": "AND", "slot": false, "arity": 2, "in": ["g5", "D"], "x": 435, "y": 135}]}, {"mode": "place", "title": "Qapı 2: 3 Mərhələli Seçim", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 165, "y": 57}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 265, "y": 57}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["C", "D"], "x": 165, "y": 153}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 265, "y": 153}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g4"], "x": 365, "y": 105}]}]}, {"level": 44, "world": 4, "topic": "Tək Həllli 4-lü Kilid", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL A & B & DEYİL C & D", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 145, "y": 34}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 145, "y": 130}, {"id": "g3", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "B"], "x": 270, "y": 57}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "D"], "x": 270, "y": 153}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 405, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Hər İki Qolda Seçim", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["A"], "x": 145, "y": 34}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 145, "y": 176}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["g1", "B"], "x": 270, "y": 57}, {"id": "g4", "type": null, "slot": true, "arity": 2, "in": ["C", "g2"], "x": 270, "y": 153}, {"id": "g5", "type": "OR", "slot": false, "arity": 2, "in": ["g3", "g4"], "x": 360, "y": 105}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 440, "y": 105}]}]}, {"level": 45, "world": 4, "topic": "Mürəkkəb Budaqlanma", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(A | B) & (B | C) & DEYİL D", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 160, "y": 52}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 265, "y": 52}, {"id": "g3", "type": "OR", "slot": false, "arity": 2, "in": ["B", "C"], "x": 160, "y": 118}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 160, "y": 176}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 345, "y": 82}, {"id": "g6", "type": "AND", "slot": false, "arity": 2, "in": ["g5", "g4"], "x": 435, "y": 128}]}, {"mode": "place", "title": "Qapı 2: 3 Boşluq (Yalnız 1 Həll)", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 160, "y": 52}, {"id": "g2", "type": "NOT", "slot": false, "arity": 1, "in": ["g1"], "x": 265, "y": 52}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["B", "C"], "x": 160, "y": 118}, {"id": "g4", "type": null, "slot": true, "arity": 1, "in": ["D"], "x": 160, "y": 176}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g2", "g3"], "x": 345, "y": 82}, {"id": "g6", "type": "OR", "slot": false, "arity": 2, "in": ["g5", "g4"], "x": 435, "y": 128}]}]}, {"level": 46, "world": 4, "topic": "Üçqat İnversiya", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(A | DEYİL B) & DEYİL(DEYİL C | D)", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 140, "y": 80}, {"id": "g2", "type": "OR", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 235, "y": 58}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 325, "y": 58}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 140, "y": 130}, {"id": "g5", "type": "OR", "slot": false, "arity": 2, "in": ["g4", "D"], "x": 235, "y": 152}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 325, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g6"], "x": 425, "y": 105}]}, {"mode": "place", "title": "Qapı 2: Üçqat İnversiya Boşluqları", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 140, "y": 80}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "g1"], "x": 235, "y": 58}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 325, "y": 58}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 140, "y": 130}, {"id": "g5", "type": null, "slot": true, "arity": 2, "in": ["g4", "D"], "x": 235, "y": 152}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 325, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g6"], "x": 425, "y": 105}]}]}, {"level": 47, "world": 4, "topic": "Dərin Zəncir I", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL((A & B) | C) & D", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 155, "y": 56}, {"id": "g2", "type": "OR", "slot": false, "arity": 2, "in": ["g1", "C"], "x": 250, "y": 92}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 340, "y": 92}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "D"], "x": 430, "y": 132}]}, {"mode": "place", "title": "Qapı 2: 3 Boşluqlu Dərin Zəncir", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 155, "y": 56}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["g1", "C"], "x": 250, "y": 92}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 340, "y": 92}, {"id": "g4", "type": null, "slot": true, "arity": 2, "in": ["g3", "D"], "x": 430, "y": 132}]}]}, {"level": 48, "world": 4, "topic": "Dərin Zəncir II", "gates": [{"mode": "switch", "title": "Qapı 1: DEYİL(A | (B & DEYİL C)) & DEYİL D", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 140, "y": 130}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["B", "g1"], "x": 230, "y": 104}, {"id": "g3", "type": "OR", "slot": false, "arity": 2, "in": ["A", "g2"], "x": 315, "y": 68}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 390, "y": 68}, {"id": "g5", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 315, "y": 176}, {"id": "g6", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "g5"], "x": 450, "y": 120}]}, {"mode": "place", "title": "Qapı 2: Mürəkkəb Zəncir", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 140, "y": 130}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["B", "g1"], "x": 230, "y": 104}, {"id": "g3", "type": null, "slot": true, "arity": 2, "in": ["A", "g2"], "x": 315, "y": 68}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["g3"], "x": 390, "y": 68}, {"id": "g5", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 315, "y": 176}, {"id": "g6", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "g5"], "x": 450, "y": 120}]}]}, {"level": 49, "world": 4, "topic": "Finala Hazırlıq", "gates": [{"mode": "switch", "title": "Qapı 1: ((A | B) & DEYİL(A & B)) & (C & DEYİL D)", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 155, "y": 36}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 155, "y": 86}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 250, "y": 86}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 335, "y": 60}, {"id": "g5", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 155, "y": 176}, {"id": "g6", "type": "AND", "slot": false, "arity": 2, "in": ["C", "g5"], "x": 295, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "g6"], "x": 430, "y": 105}]}, {"mode": "place", "title": "Qapı 2: 3 Boşluq (Yalnız 1 Həll)", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 155, "y": 36}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 155, "y": 86}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 250, "y": 86}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 335, "y": 60}, {"id": "g5", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 155, "y": 176}, {"id": "g6", "type": null, "slot": true, "arity": 2, "in": ["C", "g5"], "x": 295, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "g6"], "x": 430, "y": 105}]}]}, {"level": 50, "world": 4, "topic": "BÖYÜK FİNAL (5 Qapı)", "intro": "50-ci Səviyyə — BÖYÜK FİNAL! 5 Master Məntiq Qapısını aç və çempion ol!", "gates": [{"mode": "switch", "title": "Böyük Final 1/5: Çarpaz + 3 Giriş", "inputs": [{"id": "A", "val": 0, "y": 48}, {"id": "B", "val": 0, "y": 105}, {"id": "C", "val": 0, "y": 162}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 52}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 165, "y": 118}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 265, "y": 118}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 345, "y": 76}, {"id": "g5", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "C"], "x": 430, "y": 122}]}, {"mode": "place", "title": "Böyük Final 2/5: 3 Boşluqlu Çarpaz", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 0, "y": 176}], "nodes": [{"id": "g1", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 155, "y": 36}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "B"], "x": 155, "y": 86}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 250, "y": 86}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 335, "y": 60}, {"id": "g5", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 155, "y": 176}, {"id": "g6", "type": null, "slot": true, "arity": 2, "in": ["C", "g5"], "x": 295, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "g6"], "x": 430, "y": 105}]}, {"mode": "switch", "title": "Böyük Final 3/5: Üçqat İnversiya", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 140, "y": 80}, {"id": "g2", "type": "OR", "slot": false, "arity": 2, "in": ["A", "g1"], "x": 235, "y": 58}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 325, "y": 58}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 140, "y": 130}, {"id": "g5", "type": "OR", "slot": false, "arity": 2, "in": ["g4", "D"], "x": 235, "y": 152}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 325, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g6"], "x": 425, "y": 105}]}, {"mode": "place", "title": "Böyük Final 4/5: Simmetrik Kilid", "inputs": [{"id": "A", "val": 1, "y": 34}, {"id": "B", "val": 1, "y": 80}, {"id": "C", "val": 1, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "NOT", "slot": false, "arity": 1, "in": ["B"], "x": 140, "y": 80}, {"id": "g2", "type": null, "slot": true, "arity": 2, "in": ["A", "g1"], "x": 235, "y": 58}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 325, "y": 58}, {"id": "g4", "type": "NOT", "slot": false, "arity": 1, "in": ["C"], "x": 140, "y": 130}, {"id": "g5", "type": null, "slot": true, "arity": 2, "in": ["g4", "D"], "x": 235, "y": 152}, {"id": "g6", "type": "NOT", "slot": false, "arity": 1, "in": ["g5"], "x": 325, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g3", "g6"], "x": 425, "y": 105}]}, {"mode": "switch", "title": "Böyük Final 5/5: Məntiq Ustası", "inputs": [{"id": "A", "val": 0, "y": 34}, {"id": "B", "val": 0, "y": 80}, {"id": "C", "val": 0, "y": 130}, {"id": "D", "val": 1, "y": 176}], "nodes": [{"id": "g1", "type": "OR", "slot": false, "arity": 2, "in": ["A", "B"], "x": 155, "y": 36}, {"id": "g2", "type": "AND", "slot": false, "arity": 2, "in": ["A", "B"], "x": 155, "y": 86}, {"id": "g3", "type": "NOT", "slot": false, "arity": 1, "in": ["g2"], "x": 250, "y": 86}, {"id": "g4", "type": "AND", "slot": false, "arity": 2, "in": ["g1", "g3"], "x": 335, "y": 60}, {"id": "g5", "type": "NOT", "slot": false, "arity": 1, "in": ["D"], "x": 155, "y": 176}, {"id": "g6", "type": "AND", "slot": false, "arity": 2, "in": ["C", "g5"], "x": 295, "y": 152}, {"id": "g7", "type": "AND", "slot": false, "arity": 2, "in": ["g4", "g6"], "x": 430, "y": 105}]}]}];
 
 /* ==========================================================================
-   4. SAVE / PROGRESS MANAGEMENT (localStorage)
+   5. SAVE / PROGRESS MANAGEMENT (Backward & Forward Compatible Across Updates)
    ========================================================================== */
 const SAVE_KEY = "mentiq_macera_50_save_v2";
+const BACKUP_KEY = "mentiq_macera_backup";
+const LEGACY_KEYS = ["mentiq_macera_50_save_v2", "mentiq_macera_backup", "mentiq_macera_50_save_v1", "python_macera_50_save_v1"];
+
 let Save = {
   unlocked: 1,
   coins: 0,
   completed: {},
   ownedSkins: [0],
   equippedSkin: 0,
-  sound: true
+  sound: true,
+  lang: "az"
 };
 
 function loadSave() {
-  try {
-    const raw = localStorage.getItem(SAVE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      Save = { ...Save, ...parsed };
-      if (!Array.isArray(Save.ownedSkins) || !Save.ownedSkins.includes(0)) Save.ownedSkins = [0];
-      AudioFX.enabled = Save.sound;
-    }
-  } catch (e) {}
-  updateMenuStats();
+  let merged = { ...Save, completed: {}, ownedSkins: [0] };
+  let foundAny = false;
+
+  for (const k of LEGACY_KEYS) {
+    try {
+      const raw = localStorage.getItem(k);
+      if (!raw) continue;
+      const p = JSON.parse(raw);
+      if (!p || typeof p !== "object") continue;
+      foundAny = true;
+      if (typeof p.unlocked === "number") merged.unlocked = Math.max(merged.unlocked, Math.min(50, p.unlocked));
+      if (typeof p.coins === "number") merged.coins = Math.max(merged.coins, p.coins);
+      if (p.completed && typeof p.completed === "object") {
+        merged.completed = { ...merged.completed, ...p.completed };
+      }
+      if (Array.isArray(p.ownedSkins)) {
+        for (const sid of p.ownedSkins) {
+          if (!merged.ownedSkins.includes(sid)) merged.ownedSkins.push(sid);
+        }
+      }
+      if (typeof p.equippedSkin === "number" && k === SAVE_KEY) merged.equippedSkin = p.equippedSkin;
+      if (typeof p.sound === "boolean" && k === SAVE_KEY) merged.sound = p.sound;
+      if (typeof p.lang === "string" && I18N[p.lang] && k === SAVE_KEY) merged.lang = p.lang;
+    } catch (e) {}
+  }
+
+  if (foundAny) {
+    if (!merged.ownedSkins.includes(merged.equippedSkin)) merged.equippedSkin = 0;
+    Save = merged;
+    AudioFX.enabled = Save.sound;
+    writeSave();
+  }
+  applyLanguageUI();
 }
 
 function writeSave() {
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify(Save)); } catch (e) {}
+  try {
+    const str = JSON.stringify(Save);
+    localStorage.setItem(SAVE_KEY, str);
+    localStorage.setItem(BACKUP_KEY, str);
+  } catch (e) {}
   updateMenuStats();
 }
 
@@ -1109,18 +1827,18 @@ function getActiveSkin() {
 function updateMenuStats() {
   document.getElementById("statUnlocked").textContent = Save.unlocked;
   document.getElementById("statCoins").textContent = Save.coins;
-  document.getElementById("statSkin").textContent = getActiveSkin().name;
+  document.getElementById("statSkin").textContent = getSkinName(getActiveSkin());
   document.getElementById("btnPlayMain").textContent =
-    Save.unlocked > 1 ? `▶ DAVAM ET (SƏV ${Save.unlocked})` : "▶ OYUNA BAŞLA";
-  document.getElementById("menuSoundBtn").textContent = Save.sound ? "🔊 SƏS: AÇIQ" : "🔇 SƏS: BAĞLI";
+    Save.unlocked > 1 ? tr("playCont", Save.unlocked) : tr("playStart");
+  document.getElementById("menuSoundBtn").textContent = Save.sound ? tr("soundOn") : tr("soundOff");
   document.getElementById("hudSoundBtn").textContent = Save.sound ? "🔊" : "🔇";
 }
 
 /* ==========================================================================
-   5. DETERMINISTIC 50-LEVEL BUILDER (100% VERIFIED REACHABILITY)
+   6. DETERMINISTIC 50-LEVEL BUILDER
    ========================================================================== */
 const TILE = 32;
-const ROWS = 14; // 14 * 32 = 448px
+const ROWS = 14;
 const CANVAS_W = 800;
 const CANVAS_H = 450;
 
@@ -1139,19 +1857,16 @@ function buildLevel(levelIndex) {
   const rng = mulberry32(lvlNum * 7919 + 2026);
   const numGates = data.gates.length;
 
-  // Compact, well-paced segments for 0, 2, or 5 gates
   const segCount = numGates === 0 ? 3 : (numGates + 1);
   const segWidth = numGates === 5 ? 14 : (17 + Math.min(5, Math.floor(lvlNum / 10)));
   const cols = 7 + segCount * segWidth + 7;
 
-  // 0 empty, 1 ground, 2 brick, 3 '?' bonus block, 4 used block, 5 spike
   const grid = Array.from({ length: ROWS }, () => new Uint8Array(cols));
   const coins = [];
   const enemies = [];
   const movers = [];
   const gates = [];
 
-  // Baseline ground at rows 12 & 13 (ground top y = 384)
   for (let c = 0; c < cols; c++) {
     grid[12][c] = 1;
     grid[13][c] = 1;
@@ -1161,7 +1876,6 @@ function buildLevel(levelIndex) {
   for (let c = 0; c < 8; c++) safeCols.add(c);
   for (let c = cols - 8; c < cols; c++) safeCols.add(c);
 
-  // Evenly place all gates (0 for L1, 2 for normal, 5 for L10/20/30/40/50)
   for (let i = 0; i < numGates; i++) {
     const gc = 7 + (i + 1) * segWidth;
     for (let k = gc - 4; k <= gc + 3; k++) safeCols.add(k);
@@ -1180,7 +1894,6 @@ function buildLevel(levelIndex) {
     });
   }
 
-  // Helper to safely add coin only if not inside solid tile
   function addCoin(px, py) {
     const cc = Math.floor((px + 8) / TILE);
     const rr = Math.floor((py + 8) / TILE);
@@ -1189,7 +1902,6 @@ function buildLevel(levelIndex) {
     }
   }
 
-  // Build guaranteed-reachable obstacles between safe zones
   let c = 8;
   while (c < cols - 9) {
     if (safeCols.has(c) || safeCols.has(c + 1) || safeCols.has(c + 2)) {
@@ -1199,7 +1911,6 @@ function buildLevel(levelIndex) {
 
     const roll = rng();
 
-    // 1. Jumpable Pit (2 or 3 tiles wide — max jump horizontal is > 6 tiles)
     if (roll < 0.22 && !safeCols.has(c + 3) && !safeCols.has(c - 1)) {
       const gapW = (lvlNum >= 8 && rng() > 0.5) ? 3 : 2;
       let canDig = true;
@@ -1211,7 +1922,6 @@ function buildLevel(levelIndex) {
           grid[12][c + g] = 0;
           grid[13][c + g] = 0;
         }
-        // Coins along natural jump arc (row 10 = 64px above ground, super easy!)
         for (let g = 0; g < gapW; g++) {
           addCoin((c + g) * TILE + 8, 10 * TILE + 6);
         }
@@ -1220,20 +1930,17 @@ function buildLevel(levelIndex) {
       }
     }
 
-    // 2. Elevated Mario Brick + '?' Bonus Platform (ALWAYS at row 9 = 96px above ground; max jump is 152px!)
     if (roll < 0.62) {
-      const platW = 3 + Math.floor(rng() * 3); // 3..5 tiles
+      const platW = 3 + Math.floor(rng() * 3);
       let ok = true;
       for (let p = 0; p < platW; p++) if (safeCols.has(c + p)) ok = false;
       if (ok) {
         const qPos = Math.floor(platW / 2);
         for (let p = 0; p < platW; p++) {
           grid[9][c + p] = (p === qPos) ? 3 : 2;
-          // Coins directly on top of row 9 platform (at row 8 — collected by walking on platform!)
           addCoin((c + p) * TILE + 8, 8 * TILE + 6);
         }
         let usedExtra = 0;
-        // Optional Tier-2 platform right next to Tier-1 at row 6 (96px above row 9 — easily reachable from Tier-1!)
         if (lvlNum >= 3 && rng() > 0.52 && c + platW + 5 < cols - 8) {
           let ok2 = true;
           for (let p = 0; p < 3; p++) if (safeCols.has(c + platW + 1 + p)) ok2 = false;
@@ -1245,7 +1952,6 @@ function buildLevel(levelIndex) {
             usedExtra = 4;
           }
         }
-        // Patrolling bug underneath
         if (rng() > 0.35) {
           enemies.push({
             x: (c + 1) * TILE,
@@ -1263,22 +1969,18 @@ function buildLevel(levelIndex) {
       }
     }
 
-    // 3. Moving Platform + Easy-to-Grab Coins (Levels 4+)
     if (roll < 0.78 && lvlNum >= 4 && !safeCols.has(c + 4)) {
       const vertical = rng() > 0.5;
       if (vertical) {
-        // Oscillates smoothly between y=276 and y=336 (only 48px above ground at bottom!)
         movers.push({
           x: c * TILE, y: 306, w: TILE * 2.5, h: 14,
           baseX: c * TILE, baseY: 306,
           rangeX: 0, rangeY: 30,
           speed: 0.032, t: rng() * 6, dx: 0, dy: 0
         });
-        // Coins reachable right from top of vertical platform (y=246)
         addCoin(c * TILE + 12, 244);
         addCoin((c + 1) * TILE + 12, 244);
       } else {
-        // Horizontal mover at y=304 (80px above ground — super easy jump!)
         movers.push({
           x: c * TILE + 24, y: 304, w: TILE * 2.5, h: 14,
           baseX: c * TILE + 24, baseY: 304,
@@ -1292,7 +1994,6 @@ function buildLevel(levelIndex) {
       continue;
     }
 
-    // 4. Single-Tile Spike Hazard (Levels 11+, with coins safely above at row 10)
     if (roll < 0.88 && lvlNum >= 11 && grid[12][c] === 1 && !safeCols.has(c - 1) && !safeCols.has(c + 1)) {
       grid[11][c] = 5;
       addCoin(c * TILE + 8, 10 * TILE + 2);
@@ -1300,7 +2001,6 @@ function buildLevel(levelIndex) {
       continue;
     }
 
-    // 5. Ground Coins + Bug
     addCoin(c * TILE + 8, 11 * TILE + 6);
     if (c + 1 < cols - 8 && grid[12][c + 1] === 1) {
       addCoin((c + 1) * TILE + 8, 11 * TILE + 6);
@@ -1317,7 +2017,6 @@ function buildLevel(levelIndex) {
     c += 4;
   }
 
-  // Guarantee fun intro setup in Level 1
   if (lvlNum === 1) {
     grid[9][10] = 2; grid[9][11] = 3; grid[9][12] = 2;
     addCoin(10 * TILE + 8, 8 * TILE + 6);
@@ -1357,12 +2056,12 @@ function buildLevel(levelIndex) {
 }
 
 /* ==========================================================================
-   6. GAME ENGINE STATE & IMPROVED PHYSICS
+   7. GAME ENGINE STATE, PHYSICS & ELECTRIC SHOCK PUNISHMENT
    ========================================================================== */
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-let state = "MENU"; // MENU, PLAYING, PUZZLE, RESULT
+let state = "MENU"; // MENU, PLAYING, PUZZLE, SHOCKED, RESULT
 let currentLevelIdx = 0;
 let world = null;
 let cameraX = 0;
@@ -1372,6 +2071,9 @@ let checkpointX = 2 * TILE;
 let checkpointY = 10 * TILE;
 let gateCooldown = 0;
 let nearGate = null;
+let shockGate = null;
+let shockTimer = 0;
+let autoRestartTimer = null;
 
 const player = {
   x: 2 * TILE, y: 10 * TILE,
@@ -1417,6 +2119,7 @@ function showToast(msg, ms = 3200) {
 }
 
 function loadLevel(idx) {
+  clearTimeout(autoRestartTimer);
   currentLevelIdx = Math.max(0, Math.min(LEVELS_DATA.length - 1, idx));
   world = buildLevel(currentLevelIdx);
   levelCoins = 0;
@@ -1435,6 +2138,8 @@ function loadLevel(idx) {
   floatTexts = [];
   gateCooldown = 0;
   nearGate = null;
+  shockGate = null;
+  shockTimer = 0;
 
   closeScreens();
   state = "PLAYING";
@@ -1442,18 +2147,20 @@ function loadLevel(idx) {
   document.getElementById("touchControls").classList.add("visible");
   updateHUD();
 
-  const intro = world.data.intro || `Səviyyə ${world.data.level}: ${world.data.topic}`;
+  const intro = world.data.intro
+    ? trDynamic(world.data.intro)
+    : tr("toastLvl", world.data.level, trDynamic(world.data.topic));
   showToast(intro, 3600);
 }
 
 function updateHUD() {
   if (!world) return;
-  document.getElementById("hudLevel").textContent = `SƏV ${world.data.level}/50`;
+  document.getElementById("hudLevel").textContent = tr("hudLvl", world.data.level);
   document.getElementById("hudHearts").textContent = "♥".repeat(Math.max(0, player.hearts)) + "♡".repeat(Math.max(0, 3 - player.hearts));
   document.getElementById("hudCoins").textContent = `🪙 ${Save.coins + levelCoins}`;
   const totalG = world.gates.length;
   const openG = world.gates.filter(g => g.open).length;
-  document.getElementById("hudGates").textContent = totalG === 0 ? "🏁 TƏLİM" : `⚡ ${openG}/${totalG}`;
+  document.getElementById("hudGates").textContent = totalG === 0 ? tr("hudTrain") : `⚡ ${openG}/${totalG}`;
 }
 
 function isSolidTile(col, row) {
@@ -1471,7 +2178,7 @@ function hurtPlayer() {
   AudioFX.hurt();
   spawnParticles(player.x + 12, player.y + 15, "#ef4444", 12);
   updateHUD();
-  if (player.hearts <= 0) showResult(false);
+  if (player.hearts <= 0) showResult(false, 0, false);
 }
 
 function respawnAtCheckpoint() {
@@ -1479,7 +2186,7 @@ function respawnAtCheckpoint() {
   AudioFX.hurt();
   updateHUD();
   if (player.hearts <= 0) {
-    showResult(false);
+    showResult(false, 0, false);
     return;
   }
   player.x = checkpointX;
@@ -1487,17 +2194,59 @@ function respawnAtCheckpoint() {
   player.vx = 0;
   player.vy = 0;
   player.invuln = 80;
-  showToast("Başlanğıc nöqtəsinə qayıtdın!", 1800);
+  showToast(tr("toastRespawn"), 1800);
+}
+
+// Triggered when the player confirms a WRONG circuit or WRONG switches!
+function triggerElectricShock(gate) {
+  document.getElementById("puzzleModal").classList.remove("visible");
+  state = "SHOCKED";
+  shockGate = gate;
+  shockTimer = 58; // ~1 second of intense electric shock animation
+  player.hearts = 0; // ALL lives lost immediately!
+  player.vx = -2.2;
+  player.vy = -4.5;
+  updateHUD();
+  AudioFX.shock();
+  spawnParticles(player.x + 12, player.y + 15, "#38bdf8", 22);
+  spawnParticles(player.x + 12, player.y + 15, "#facc15", 22);
+  spawnFloatText(player.x + 12, player.y - 16, tr("floatShock"), "#38bdf8");
 }
 
 function updatePhysics() {
+  if (state === "SHOCKED" && world) {
+    frameTick++;
+    shockTimer--;
+    if (shockTimer % 5 === 0) {
+      spawnParticles(player.x + 12, player.y + 15, "#38bdf8", 6);
+      spawnParticles(player.x + 12, player.y + 15, "#facc15", 6);
+    }
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy; p.vy += 0.22; p.life--;
+      if (p.life <= 0) particles.splice(i, 1);
+    }
+    for (let i = floatTexts.length - 1; i >= 0; i--) {
+      const f = floatTexts[i];
+      f.y -= 0.9; f.life--;
+      if (f.life <= 0) floatTexts.splice(i, 1);
+    }
+    if (shockTimer <= 0) {
+      showResult(false, 0, true);
+      // Automatically restart the level from the beginning after 1.35 seconds
+      autoRestartTimer = setTimeout(() => {
+        if (state === "RESULT") restartLevel();
+      }, 1350);
+    }
+    return;
+  }
+
   if (state !== "PLAYING" || !world) return;
 
   frameTick++;
   if (gateCooldown > 0) gateCooldown--;
   if (player.invuln > 0) player.invuln--;
 
-  // Update Moving Platforms
   for (const m of world.movers) {
     const prevX = m.x, prevY = m.y;
     m.t += m.speed;
@@ -1507,7 +2256,6 @@ function updatePhysics() {
     m.dy = m.y - prevY;
   }
 
-  // Horizontal Movement (snappy & responsive)
   const speed = 4.4;
   if (keys.left && !keys.right) {
     player.vx = -speed;
@@ -1522,7 +2270,6 @@ function updatePhysics() {
     if (Math.abs(player.vx) < 0.2) player.vx = 0;
   }
 
-  // Jump buffering + Coyote time (Higher jump = 152.6px max height!)
   if (player.onGround) player.coyote = 8;
   else if (player.coyote > 0) player.coyote--;
 
@@ -1537,10 +2284,8 @@ function updatePhysics() {
     spawnParticles(player.x + 12, player.y + player.h, "#e2e8f0", 5);
   }
 
-  // Gravity
   player.vy = Math.min(12.5, player.vy + 0.52);
 
-  // Move X & Tile Collision
   player.x += player.vx;
   if (player.x < 4) player.x = 4;
   if (player.x + player.w > world.width - 4) player.x = world.width - player.w - 4;
@@ -1567,7 +2312,6 @@ function updatePhysics() {
     }
   }
 
-  // Electric Logic Gates
   nearGate = null;
   for (const g of world.gates) {
     if (g.open) {
@@ -1598,7 +2342,6 @@ function updatePhysics() {
   if (nearGate && !nearGate.open) actBtn.classList.add("ready");
   else actBtn.classList.remove("ready");
 
-  // Move Y & Tile Collision
   const prevFoot = player.y + player.h;
   player.y += player.vy;
   player.onGround = false;
@@ -1637,7 +2380,6 @@ function updatePhysics() {
     }
   }
 
-  // Smooth Moving Platform Landing (supports both horizontal & vertical movers reliably)
   for (const m of world.movers) {
     const currFoot = player.y + player.h;
     if (
@@ -1655,20 +2397,17 @@ function updatePhysics() {
     }
   }
 
-  // Spikes Check
   const centerC = Math.floor((player.x + player.w / 2) / TILE);
   const footR = Math.floor((player.y + player.h - 4) / TILE);
   if (footR >= 0 && footR < world.rows && centerC >= 0 && centerC < world.cols) {
     if (world.grid[footR][centerC] === 5) hurtPlayer();
   }
 
-  // Pit Fall
   if (player.y > CANVAS_H + 50) {
     respawnAtCheckpoint();
     return;
   }
 
-  // Generous Coin Pickup Hitbox (guaranteed easy collection!)
   for (const coin of world.coins) {
     if (coin.got) continue;
     if (
@@ -1686,7 +2425,6 @@ function updatePhysics() {
     }
   }
 
-  // Enemies Update & Mario Stomp
   for (const e of world.enemies) {
     if (!e.alive) {
       if (e.squashTimer > 0) e.squashTimer--;
@@ -1717,7 +2455,6 @@ function updatePhysics() {
     }
   }
 
-  // Exit Flagpole Check
   const fl = world.flag;
   if (
     player.x + player.w > fl.x &&
@@ -1726,14 +2463,13 @@ function updatePhysics() {
   ) {
     const lockedLeft = world.gates.some(g => !g.open);
     if (lockedLeft) {
-      showToast("Əvvəlcə bütün elektrik qapılarını açmalısan!", 2200);
+      showToast(tr("toastLocked"), 2200);
     } else {
       completeLevel();
       return;
     }
   }
 
-  // Particles & Floating Texts
   for (let i = particles.length - 1; i >= 0; i--) {
     const p = particles[i];
     p.x += p.vx;
@@ -1764,46 +2500,52 @@ function completeLevel() {
     Save.unlocked = lvlNum + 1;
   }
   writeSave();
-  showResult(true, bonus);
+  showResult(true, bonus, false);
 }
 
-function showResult(won, bonus = 50) {
+function showResult(won, bonus = 50, isShock = false) {
   state = "RESULT";
   const card = document.getElementById("resultCard");
   const title = document.getElementById("resTitle");
   const desc = document.getElementById("resDesc");
   const nextBtn = document.getElementById("btnNextLvl");
 
+  card.classList.remove("lose", "shock-lose");
+
   if (won) {
-    card.classList.remove("lose");
     if (world.data.level === 50) {
-      title.textContent = "🏆 TƏBRİKLƏR! MƏNTİQ ÇEMPİONU!";
-      desc.textContent = `Bütün 50 səviyyəni tamamladın! Cəmi qızılın: ${Save.coins} 🪙`;
+      title.textContent = tr("winChampTitle");
+      desc.textContent = tr("winChampDesc", Save.coins);
       nextBtn.style.display = "none";
     } else {
-      title.textContent = `🎉 SƏVİYYƏ ${world.data.level} TAMAMLANDI!`;
-      desc.textContent = `Mövzu: ${world.data.topic} | Qazanılan qızıl: +${levelCoins + bonus} 🪙`;
+      title.textContent = tr("winLvlTitle", world.data.level);
+      desc.textContent = tr("winLvlDesc", trDynamic(world.data.topic), levelCoins + bonus);
       nextBtn.style.display = "inline-block";
     }
+  } else if (isShock) {
+    card.classList.add("lose", "shock-lose");
+    title.textContent = tr("shockTitle");
+    desc.textContent = tr("shockDesc");
+    nextBtn.style.display = "none";
   } else {
     card.classList.add("lose");
-    title.textContent = "💥 CANLAR BİTDİ!";
-    desc.textContent = "Yenidən cəhd et və bütün elektrik qapılarını aç!";
+    title.textContent = tr("loseTitle");
+    desc.textContent = tr("loseDesc");
     nextBtn.style.display = "none";
   }
   document.getElementById("resultModal").classList.add("visible");
 }
 
 /* ==========================================================================
-   7. 2D PIXEL ART RENDERER (WITH 11 SKINS)
+   8. 2D PIXEL ART RENDERER (WITH 21 SKINS + ELECTRIC SHOCK BOLTS)
    ========================================================================== */
 function drawPixelRect(c2d, x, y, w, h, color) {
   c2d.fillStyle = color;
   c2d.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
 }
 
-function drawHeroSprite(c2d, x, y, dir, walkFrame, invuln, skin, scale = 1, onGround = true) {
-  if (invuln > 0 && Math.floor(invuln / 4) % 2 === 0) return;
+function drawHeroSprite(c2d, x, y, dir, walkFrame, invuln, skin, scale = 1, onGround = true, shocked = false) {
+  if (!shocked && invuln > 0 && Math.floor(invuln / 4) % 2 === 0) return;
 
   c2d.save();
   if (dir === -1) {
@@ -1816,7 +2558,21 @@ function drawHeroSprite(c2d, x, y, dir, walkFrame, invuln, skin, scale = 1, onGr
 
   const legShift = onGround ? Math.round(Math.sin(walkFrame * 2) * 3) : 3;
 
-  // Skin-specific accessories behind/top
+  // Back accessories (wings, capes, packs)
+  if (skin.extra === "pack") {
+    drawPixelRect(c2d, -1, 14, 5, 10, "#cbd5e1");
+  } else if (skin.extra === "dragon" || skin.extra === "galaxy" || skin.extra === "emperor") {
+    const capeCol = skin.extra === "dragon" ? "#7f1d1d" : (skin.extra === "galaxy" ? "#1e1b4b" : "#4c1d95");
+    drawPixelRect(c2d, 0, 15, 5, 13, capeCol);
+    if (skin.extra === "galaxy") drawPixelRect(c2d, 1, 18, 2, 2, "#facc15");
+  } else if (skin.extra === "angel") {
+    drawPixelRect(c2d, -3, 12, 6, 9, "#e0f2fe");
+    drawPixelRect(c2d, -5, 14, 4, 6, "#ffffff");
+  } else if (skin.extra === "druid") {
+    drawPixelRect(c2d, 0, 15, 5, 12, "#064e3b");
+  }
+
+  // Top / Headgear accessories
   if (skin.extra === "plume") {
     drawPixelRect(c2d, 7, -4, 10, 4, "#ef4444");
   } else if (skin.extra === "antenna") {
@@ -1825,15 +2581,35 @@ function drawHeroSprite(c2d, x, y, dir, walkFrame, invuln, skin, scale = 1, onGr
   } else if (skin.extra === "wizard") {
     drawPixelRect(c2d, 8, -6, 8, 6, "#7e22ce");
     drawPixelRect(c2d, 10, -9, 4, 3, "#facc15");
-  } else if (skin.extra === "crown" || skin.extra === "crown_ice") {
-    const cc = skin.extra === "crown" ? "#facc15" : "#e0f2fe";
+  } else if (skin.extra === "crown" || skin.extra === "crown_ice" || skin.extra === "emperor") {
+    const cc = skin.extra === "crown_ice" ? "#e0f2fe" : "#facc15";
     drawPixelRect(c2d, 4, -4, 3, 4, cc);
-    drawPixelRect(c2d, 10, -5, 4, 5, cc);
+    drawPixelRect(c2d, 10, -6, 4, 6, cc);
     drawPixelRect(c2d, 17, -4, 3, 4, cc);
-  } else if (skin.extra === "pack") {
-    drawPixelRect(c2d, -1, 14, 5, 10, "#cbd5e1");
+    if (skin.extra === "emperor") drawPixelRect(c2d, 11, -4, 2, 2, "#a855f7");
   } else if (skin.extra === "feather") {
     drawPixelRect(c2d, 3, -5, 3, 6, "#facc15");
+  } else if (skin.extra === "dragon") {
+    drawPixelRect(c2d, 3, -5, 3, 5, "#facc15");
+    drawPixelRect(c2d, 16, -5, 3, 5, "#facc15");
+  } else if (skin.extra === "samurai") {
+    drawPixelRect(c2d, 10, -6, 4, 3, "#facc15");
+    drawPixelRect(c2d, 8, -4, 8, 2, "#facc15");
+  } else if (skin.extra === "pharaoh") {
+    drawPixelRect(c2d, 2, 2, 3, 12, "#06b6d4");
+    drawPixelRect(c2d, 11, -3, 2, 4, "#38bdf8");
+  } else if (skin.extra === "angel") {
+    drawPixelRect(c2d, 6, -5, 12, 2, "#facc15");
+  } else if (skin.extra === "crystal") {
+    drawPixelRect(c2d, 6, -5, 3, 5, "#f0abfc");
+    drawPixelRect(c2d, 14, -6, 3, 6, "#38bdf8");
+  } else if (skin.extra === "pirate") {
+    drawPixelRect(c2d, 10, 1, 4, 3, "#ffffff");
+  } else if (skin.extra === "druid") {
+    drawPixelRect(c2d, 4, -5, 2, 5, "#d97706");
+    drawPixelRect(c2d, 17, -5, 2, 5, "#d97706");
+  } else if (skin.extra === "galaxy") {
+    drawPixelRect(c2d, 9, -5, 6, 4, "#38bdf8");
   }
 
   // Hat / Helmet
@@ -1841,8 +2617,11 @@ function drawHeroSprite(c2d, x, y, dir, walkFrame, invuln, skin, scale = 1, onGr
   drawPixelRect(c2d, 2, 4, 21, 3, skin.visor);
   // Head & Eye
   drawPixelRect(c2d, 5, 7, 14, 9, skin.face);
-  if (skin.extra === "visor") {
+  if (skin.extra === "visor" || skin.extra === "titan") {
     drawPixelRect(c2d, 10, 9, 9, 4, skin.eye);
+  } else if (skin.extra === "pirate") {
+    drawPixelRect(c2d, 12, 9, 6, 3, "#090d16");
+    drawPixelRect(c2d, 14, 9, 3, 3, "#ffffff");
   } else {
     drawPixelRect(c2d, 14, 9, 3, 3, skin.eye);
   }
@@ -1853,6 +2632,10 @@ function drawHeroSprite(c2d, x, y, dir, walkFrame, invuln, skin, scale = 1, onGr
   drawPixelRect(c2d, 4, 16, 16, 7, skin.body);
   drawPixelRect(c2d, 2, 16, 4, 6, skin.arms);
   drawPixelRect(c2d, 18, 16, 4, 6, skin.arms);
+  if (skin.extra === "titan") {
+    drawPixelRect(c2d, 1, 14, 5, 4, "#ec4899");
+    drawPixelRect(c2d, 18, 14, 5, 4, "#ec4899");
+  }
   drawPixelRect(c2d, 8, 18, 3, 3, skin.btn);
   drawPixelRect(c2d, 13, 18, 3, 3, skin.btn);
   // Legs & Shoes
@@ -1860,6 +2643,14 @@ function drawHeroSprite(c2d, x, y, dir, walkFrame, invuln, skin, scale = 1, onGr
   drawPixelRect(c2d, 13 - legShift, 23, 6, 7, skin.legs);
   drawPixelRect(c2d, 4 + legShift, 27, 8, 3, skin.shoes);
   drawPixelRect(c2d, 12 - legShift, 27, 8, 3, skin.shoes);
+
+  // High-voltage electrocution overlay flash
+  if (shocked && Math.floor(frameTick / 2) % 2 === 0) {
+    c2d.fillStyle = "rgba(56, 189, 248, 0.78)";
+    c2d.fillRect(2, 0, 20, 30);
+    drawPixelRect(c2d, 7, 17, 10, 2, "#090d16");
+    drawPixelRect(c2d, 7, 20, 10, 2, "#090d16");
+  }
 
   c2d.restore();
 }
@@ -1926,13 +2717,11 @@ function drawGateAndTerminal(g, cam) {
   const tx = g.termX - cam;
   const ty = g.termY;
 
-  // Power cable connecting terminal to gate
   drawPixelRect(ctx, tx + 34, ty + 20, gx - (tx + 34) + 2, 5, g.open ? "#22c55e" : "#475569");
   if (g.open && Math.floor(frameTick / 6) % 2 === 0) {
     drawPixelRect(ctx, tx + 40, ty + 21, 14, 3, "#facc15");
   }
 
-  // Electric Logic Terminal Box
   drawPixelRect(ctx, tx + 14, ty + 32, 8, 56, "#475569");
   drawPixelRect(ctx, tx, ty, 38, 34, "#1e293b");
   drawPixelRect(ctx, tx + 2, ty + 2, 34, 30, g.open ? "#052e16" : "#020617");
@@ -1945,18 +2734,16 @@ function drawGateAndTerminal(g, cam) {
   ctx.textAlign = "center";
   ctx.fillText(g.open ? "⚡1" : (g.circuit.mode === "switch" ? "0/1" : "⚡?"), Math.round(tx + 19), Math.round(ty + 21));
 
-  if (!g.open && nearGate === g) {
+  if (!g.open && nearGate === g && state === "PLAYING") {
     const bob = Math.sin(frameTick * 0.12) * 4;
     drawPixelRect(ctx, tx - 14, ty - 24 + bob, 66, 17, "#facc15");
     ctx.fillStyle = "#0f172a";
     ctx.font = "bold 10px Courier New";
-    ctx.fillText("[E] SXEM", Math.round(tx + 19), Math.round(ty - 12 + bob));
+    ctx.fillText(tr("gateSign"), Math.round(tx + 19), Math.round(ty - 12 + bob));
   }
 
-  // Floor-to-ceiling Electric Laser Barrier (cannot be jumped over!)
   const closedH = Math.round(g.h * (1 - g.openAnim));
   if (closedH > 2) {
-    // Upper plasma field (above door lintel)
     const upperH = Math.max(0, Math.min(8 * TILE, closedH));
     const pulse = 0.55 + 0.45 * Math.sin(frameTick * 0.18);
     if (upperH > 0) {
@@ -1965,7 +2752,6 @@ function drawGateAndTerminal(g, cam) {
       ctx.fillStyle = `rgba(56, 189, 248, ${pulse})`;
       ctx.fillRect(Math.round(gx + 14), 0, 4, upperH);
     }
-    // Main heavy electric door (rows 8..11)
     const doorTop = 8 * TILE;
     const doorH = Math.max(0, closedH - doorTop);
     if (doorH > 2) {
@@ -1981,9 +2767,32 @@ function drawGateAndTerminal(g, cam) {
       }
     }
   }
-  // Top Lintel above door
   drawPixelRect(ctx, gx - 2, 8 * TILE - 10, g.w + 4, 12, "#334155");
   drawPixelRect(ctx, gx + 10, 8 * TILE - 7, 12, 6, g.open ? "#22c55e" : "#ef4444");
+}
+
+function drawLightningBolts(g, cam) {
+  if (!g) return;
+  const sx = g.x - cam + 8;
+  const sy = 9 * TILE + 12;
+  const tx = player.x - cam + 12;
+  const ty = player.y + 15;
+
+  for (let b = 0; b < 3; b++) {
+    ctx.beginPath();
+    ctx.moveTo(sx, sy + (b - 1) * 14);
+    const steps = 6;
+    for (let i = 1; i < steps; i++) {
+      const t = i / steps;
+      const bx = sx + (tx - sx) * t + (Math.random() - 0.5) * 26;
+      const by = sy + (ty - sy) * t + (Math.random() - 0.5) * 26;
+      ctx.lineTo(bx, by);
+    }
+    ctx.lineTo(tx, ty);
+    ctx.strokeStyle = b === 0 ? "#ffffff" : (b === 1 ? "#38bdf8" : "#facc15");
+    ctx.lineWidth = b === 0 ? 3.5 : 2;
+    ctx.stroke();
+  }
 }
 
 function renderGame() {
@@ -1996,8 +2805,13 @@ function renderGame() {
       drawPixelRect(ctx, x, 12 * TILE, TILE, 8, "#22c55e");
     }
     const hopY = 11 * TILE + 2 - Math.abs(Math.sin(frameTick * 0.08)) * 22;
-    drawHeroSprite(ctx, 115, hopY, 1, frameTick * 0.18, 0, skin, 1.15, false);
+    drawHeroSprite(ctx, 115, hopY, 1, frameTick * 0.18, 0, skin, 1.15, false, false);
     return;
+  }
+
+  ctx.save();
+  if (state === "SHOCKED" && shockTimer > 0) {
+    ctx.translate((Math.random() - 0.5) * 8, (Math.random() - 0.5) * 8);
   }
 
   const theme = world.theme;
@@ -2081,7 +2895,6 @@ function renderGame() {
 
   for (const g of world.gates) drawGateAndTerminal(g, cameraX);
 
-  // Flagpole
   const fx = world.flag.x - cameraX;
   const fy = world.flag.y;
   drawPixelRect(ctx, fx + 12, fy, 6, world.flag.h, "#e2e8f0");
@@ -2096,7 +2909,17 @@ function renderGame() {
 
   for (const e of world.enemies) drawBugEnemy(e, cameraX);
 
-  drawHeroSprite(ctx, player.x - cameraX, player.y, player.dir, player.walkFrame, player.invuln, skin, 1, player.onGround);
+  const isShocked = (state === "SHOCKED");
+  const jitterX = isShocked ? (Math.random() - 0.5) * 6 : 0;
+  drawHeroSprite(ctx, player.x - cameraX + jitterX, player.y, player.dir, player.walkFrame, player.invuln, skin, 1, player.onGround, isShocked);
+
+  if (isShocked) {
+    drawLightningBolts(shockGate, cameraX);
+    if (Math.floor(frameTick / 3) % 2 === 0) {
+      ctx.fillStyle = "rgba(56, 189, 248, 0.18)";
+      ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+    }
+  }
 
   for (const p of particles) drawPixelRect(ctx, p.x - cameraX, p.y, p.size, p.size, p.color);
 
@@ -2108,15 +2931,18 @@ function renderGame() {
     ctx.fillStyle = f.color;
     ctx.fillText(f.text, Math.round(f.x - cameraX), Math.round(f.y));
   }
+
+  ctx.restore();
 }
 
 /* ==========================================================================
-   8. INTERACTIVE BOOLEAN LOGIC CIRCUIT PUZZLE SYSTEM (NO HINTS)
+   9. INTERACTIVE BOOLEAN LOGIC CIRCUIT PUZZLE SYSTEM
    ========================================================================== */
 let activeGate = null;
-let curInputs = {};     // { A: 0|1, B: 0|1, ... }
-let curSlots = {};      // { g1: "NOT"|"OR"|"AND"|null }
-let poweredResults = null; // Evaluated map shown after clicking "CƏRƏYANI VER"
+let curInputs = {};
+let curSlots = {};
+let poweredResults = null;
+let puzzleLocked = false;
 
 const GATE_W = 40;
 const GATE_H = 44;
@@ -2145,6 +2971,7 @@ function evalCurrentCircuit() {
 function openPuzzle(gate) {
   activeGate = gate;
   state = "PUZZLE";
+  puzzleLocked = false;
   keys.left = keys.right = keys.jump = false;
   poweredResults = null;
 
@@ -2156,12 +2983,10 @@ function openPuzzle(gate) {
   ch.nodes.forEach(n => { if (n.slot) curSlots[n.id] = null; });
 
   document.getElementById("pzBadge").textContent =
-    ch.mode === "switch" ? "⚡ DÜYMƏLİ DÖVRƏ" : "🔌 SXEMİ TAMAMLA";
-  document.getElementById("pzTitle").textContent = ch.title;
+    ch.mode === "switch" ? tr("badgeSwitch") : tr("badgePlace");
+  document.getElementById("pzTitle").textContent = trDynamic(ch.title);
   document.getElementById("pzPrompt").textContent =
-    ch.mode === "switch"
-      ? "Giriş düymələrinə (0 / 1) toxunaraq elektrik enerjisini (1) qapıya çatdır və 'CƏRƏYANI VER' düyməsini bas!"
-      : "Məntiq elementlərini (İnvertor, Dizyunktor, Konyunktor) uyğun boşluqlara sürüşdür (və ya toxun) və cərəyanı ver!";
+    ch.mode === "switch" ? tr("promptSwitch") : tr("promptPlace");
 
   const fb = document.getElementById("pzFeedback");
   fb.className = "puzzle-feedback";
@@ -2206,9 +3031,9 @@ function buildGateTray() {
   const tray = document.getElementById("gateTray");
   tray.innerHTML = "";
   const items = [
-    { type: "NOT", arity: 1, label: "İnvertor" },
-    { type: "OR",  arity: 2, label: "Dizyunktor (1)" },
-    { type: "AND", arity: 2, label: "Konyunktor (&)" }
+    { type: "NOT", arity: 1, label: tr("trayNot") },
+    { type: "OR",  arity: 2, label: tr("trayOr") },
+    { type: "AND", arity: 2, label: tr("trayAnd") }
   ];
 
   items.forEach(item => {
@@ -2217,8 +3042,8 @@ function buildGateTray() {
     chip.className = "gate-chip";
     chip.innerHTML = `${getMiniGateSVG(item.type)}<span>${item.label}</span>`;
 
-    // Unified Pointer Drag + Tap-to-Place (Mobile APK + Desktop)
     chip.addEventListener("pointerdown", e => {
+      if (puzzleLocked) return;
       e.preventDefault();
       const startX = e.clientX, startY = e.clientY;
       let dragged = false;
@@ -2262,7 +3087,6 @@ function buildGateTray() {
           });
           if (targetNodeId) placeGateInSlot(targetNodeId, item);
         } else {
-          // Tap-to-place into first empty compatible slot
           const ch = activeGate.circuit;
           const compat = ch.nodes.find(n => n.slot && curSlots[n.id] === null && n.arity === item.arity);
           if (compat) {
@@ -2271,7 +3095,7 @@ function buildGateTray() {
             const anyEmpty = ch.nodes.find(n => n.slot && curSlots[n.id] === null);
             if (anyEmpty) {
               AudioFX.wrong();
-              setFeedback("err", "Bu boşluğun giriş sayı uyğun deyil!");
+              setFeedback("err", tr("errArity"));
             }
           }
         }
@@ -2287,11 +3111,12 @@ function buildGateTray() {
 }
 
 function placeGateInSlot(nodeId, item) {
+  if (puzzleLocked) return;
   const node = activeGate.circuit.nodes.find(n => n.id === nodeId);
   if (!node || !node.slot) return;
   if (node.arity !== item.arity) {
     AudioFX.wrong();
-    setFeedback("err", "Bu boşluğun giriş sayı uyğun deyil!");
+    setFeedback("err", tr("errArity"));
     return;
   }
   curSlots[nodeId] = item.type;
@@ -2302,7 +3127,7 @@ function placeGateInSlot(nodeId, item) {
 }
 
 function resetCircuitSlots() {
-  if (!activeGate) return;
+  if (!activeGate || puzzleLocked) return;
   Object.keys(curSlots).forEach(k => { curSlots[k] = null; });
   poweredResults = null;
   setFeedback("", "");
@@ -2320,7 +3145,6 @@ function renderCircuitSVG() {
   const ch = activeGate.circuit;
   const stage = document.getElementById("circuitStage");
 
-  // Map output pin coordinates of every source (inputs + gates)
   const outPos = {};
   ch.inputs.forEach(inp => { outPos[inp.id] = { x: 74, y: inp.y }; });
   ch.nodes.forEach(n => {
@@ -2329,7 +3153,6 @@ function renderCircuitSVG() {
     outPos[n.id] = { x: n.x + GATE_W / 2 + extraR, y: n.y };
   });
 
-  // Helper to get wire power state (inputs glow live; internal gates glow after pressing CƏRƏYANI VER)
   function isWirePowered(srcId) {
     if (poweredResults !== null) return poweredResults[srcId] === 1;
     if (srcId in curInputs) return curInputs[srcId] === 1;
@@ -2337,13 +3160,10 @@ function renderCircuitSVG() {
   }
 
   let svg = `<svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg">`;
-
-  // Subtle circuit board grid
   svg += `<defs><pattern id="pcbGrid" width="20" height="20" patternUnits="userSpaceOnUse">
     <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(56,189,248,0.07)" stroke-width="1"/>
   </pattern></defs><rect width="560" height="210" fill="url(#pcbGrid)"/>`;
 
-  // 1. Draw Wires connecting sources to gate inputs
   ch.nodes.forEach(n => {
     const inLeftX = n.x - GATE_W / 2;
     n.in.forEach((srcId, pinIdx) => {
@@ -2354,12 +3174,10 @@ function renderCircuitSVG() {
       const on = isWirePowered(srcId);
       svg += `<path d="${d}" class="${on ? 'wire-on' : 'wire-off'}"/>`;
       if (on) svg += `<path d="${d}" class="wire-spark"/>`;
-      // Junction dot
       svg += `<circle cx="${sp.x}" cy="${sp.y}" r="3" fill="${on ? '#38bdf8' : '#64748b'}"/>`;
     });
   });
 
-  // Final wire from last gate to Electric Door Lamp
   const lastNode = ch.nodes[ch.nodes.length - 1];
   const lp = outPos[lastNode.id];
   const doorX = 492;
@@ -2369,7 +3187,6 @@ function renderCircuitSVG() {
   svg += `<path d="${finalD}" class="${finalOn ? 'wire-on' : 'wire-off'}"/>`;
   if (finalOn) svg += `<path d="${finalD}" class="wire-spark"/>`;
 
-  // 2. Draw Input Switches / Power Sources
   ch.inputs.forEach(inp => {
     const v = curInputs[inp.id];
     const isSw = ch.mode === "switch";
@@ -2382,7 +3199,6 @@ function renderCircuitSVG() {
     </g>`;
   });
 
-  // 3. Draw Logic Gate Elements (EXACT IEC/GOST Rectangular Symbols from User's Image!)
   ch.nodes.forEach(n => {
     const gx = n.x - GATE_W / 2;
     const gy = n.y - GATE_H / 2;
@@ -2391,7 +3207,6 @@ function renderCircuitSVG() {
     const borderCol = nodeOut === 1 ? "#4ade80" : (n.slot ? "#facc15" : "#ffffff");
 
     if (n.slot && !placedType) {
-      // Empty drop slot
       svg += `<g class="svg-slot" data-node-id="${n.id}">
         <rect class="slot-bg" x="${gx - 2}" y="${gy - 2}" width="${GATE_W + 4}" height="${GATE_H + 4}" rx="5"
               fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-width="2.5" stroke-dasharray="6 4"/>
@@ -2404,16 +3219,12 @@ function renderCircuitSVG() {
       svg += `<rect class="slot-bg" x="${gx}" y="${gy}" width="${GATE_W}" height="${GATE_H}" fill="${fillBg}" stroke="${borderCol}" stroke-width="2.8"/>`;
 
       if (placedType === "NOT") {
-        // İnvertor: Clean rectangle with right-edge inversion circle (bubble)
         svg += `<circle cx="${gx + GATE_W + 4.5}" cy="${n.y}" r="5.5" fill="#0f172a" stroke="${borderCol}" stroke-width="2.8"/>`;
       } else if (placedType === "OR") {
-        // Dizyunktor: '1' at top-right inside rectangle
         svg += `<text x="${gx + GATE_W - 11}" y="${gy + 19}" fill="#ffffff" font-size="17" font-weight="900" text-anchor="middle">1</text>`;
       } else if (placedType === "AND") {
-        // Konyunktor: '&' at top-right inside rectangle
         svg += `<text x="${gx + GATE_W - 11}" y="${gy + 19}" fill="#ffffff" font-size="17" font-weight="900" text-anchor="middle">&amp;</text>`;
       }
-      // Show output signal badge when energized
       if (nodeOut !== null) {
         svg += `<circle cx="${n.x}" cy="${gy + GATE_H - 9}" r="7" fill="${nodeOut === 1 ? '#22c55e' : '#334155'}"/>`;
         svg += `<text x="${n.x}" y="${gy + GATE_H - 5}" fill="#fff" font-size="10" font-weight="bold" text-anchor="middle">${nodeOut}</text>`;
@@ -2422,22 +3233,21 @@ function renderCircuitSVG() {
     }
   });
 
-  // 4. Draw Electric Door Lock on Right
   const doorFill = finalOn ? "#14532d" : "#1e293b";
   const doorStroke = finalOn ? "#4ade80" : (poweredResults !== null ? "#ef4444" : "#64748b");
   svg += `<g>
     <rect x="${doorX}" y="${doorY - 28}" width="54" height="56" rx="8" fill="${doorFill}" stroke="${doorStroke}" stroke-width="3"/>
     <text x="${doorX + 27}" y="${doorY - 3}" fill="${finalOn ? '#facc15' : '#94a3b8'}" font-size="20" text-anchor="middle">⚡</text>
-    <text x="${doorX + 27}" y="${doorY + 18}" fill="${finalOn ? '#4ade80' : '#f8fafc'}" font-size="11" font-weight="900" text-anchor="middle">${finalOn ? 'AÇIQ' : 'QAPI'}</text>
+    <text x="${doorX + 27}" y="${doorY + 18}" fill="${finalOn ? '#4ade80' : '#f8fafc'}" font-size="10.5" font-weight="900" text-anchor="middle">${finalOn ? tr("svgOpen") : tr("svgDoor")}</text>
   </g>`;
 
   svg += `</svg>`;
   stage.innerHTML = svg;
 
-  // Bind click events to switches
   if (ch.mode === "switch") {
     stage.querySelectorAll(".svg-switch").forEach(el => {
       el.addEventListener("click", () => {
+        if (puzzleLocked) return;
         const id = el.dataset.inp;
         curInputs[id] = 1 - curInputs[id];
         poweredResults = null;
@@ -2448,10 +3258,10 @@ function renderCircuitSVG() {
     });
   }
 
-  // Bind click to clear filled slots
   if (ch.mode === "place") {
     stage.querySelectorAll(".svg-slot").forEach(el => {
       el.addEventListener("click", () => {
+        if (puzzleLocked) return;
         const nid = el.dataset.nodeId;
         if (curSlots[nid] !== null) {
           curSlots[nid] = null;
@@ -2466,19 +3276,19 @@ function renderCircuitSVG() {
 }
 
 function checkCircuitPower() {
-  if (!activeGate) return;
+  if (!activeGate || puzzleLocked) return;
   const ch = activeGate.circuit;
 
-  // Check if any slot is still empty
   if (ch.mode === "place") {
     const hasEmpty = ch.nodes.some(n => n.slot && !curSlots[n.id]);
     if (hasEmpty) {
       AudioFX.wrong();
-      setFeedback("err", "Bütün boşluqlara uyğun məntiq elementi yerləşdir!");
+      setFeedback("err", tr("errEmpty"));
       return;
     }
   }
 
+  puzzleLocked = true;
   poweredResults = evalCurrentCircuit();
   renderCircuitSVG();
 
@@ -2487,7 +3297,7 @@ function checkCircuitPower() {
 
   if (outVal === 1) {
     AudioFX.unlock();
-    setFeedback("ok", "⚡ Elektrik cərəyanı qapıya çatdı! Qapı açılır! (+25 🪙)");
+    setFeedback("ok", tr("okPower"));
     activeGate.open = true;
     levelCoins += 25;
 
@@ -2495,30 +3305,36 @@ function checkCircuitPower() {
     checkpointY = 10 * TILE;
 
     spawnParticles(activeGate.x + 16, 9 * TILE + 16, "#38bdf8", 18);
-    spawnFloatText(activeGate.x + 16, 8 * TILE - 10, "⚡ AÇILDI! +25 🪙", "#4ade80");
+    spawnFloatText(activeGate.x + 16, 8 * TILE - 10, tr("floatOpen"), "#4ade80");
     updateHUD();
 
     setTimeout(() => {
       closePuzzle();
     }, 750);
   } else {
-    AudioFX.wrong();
-    setFeedback("err", "⚡ Cərəyan qapıya çatmadı (Çıxış = 0)! Dövrəni yenidən yoxla.");
+    // WRONG setup or WRONG buttons after confirming -> Electric shock, lose all lives, restart level!
+    const failedGate = activeGate;
+    setFeedback("err", tr("errShockModal"));
+    setTimeout(() => {
+      triggerElectricShock(failedGate);
+    }, 480);
   }
 }
 
 function closePuzzle() {
   document.getElementById("puzzleModal").classList.remove("visible");
   gateCooldown = 48;
+  puzzleLocked = false;
   if (state === "PUZZLE") state = "PLAYING";
 }
 
 /* ==========================================================================
-   9. SHOP, LEVEL SELECT & NAVIGATION
+   10. SHOP, LEVEL SELECT & NAVIGATION
    ========================================================================== */
 let selectedWorldTab = 0;
 
 function closeScreens() {
+  clearTimeout(autoRestartTimer);
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("visible"));
 }
 
@@ -2532,14 +3348,41 @@ function closeSubScreen(id) {
 function tryLandscapeFullscreen() {
   try {
     const el = document.documentElement;
-    if (el.requestFullscreen && !document.fullscreenElement && window.innerWidth < 1024) {
-      el.requestFullscreen().catch(() => {});
+    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    if (!isFs) {
+      if (el.requestFullscreen) {
+        el.requestFullscreen({ navigationUI: "hide" }).catch(() => {
+          el.requestFullscreen().catch(() => {});
+        });
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+      }
     }
     if (screen.orientation && screen.orientation.lock) {
       screen.orientation.lock("landscape").catch(() => {});
     }
   } catch (e) {}
 }
+
+function toggleFullscreen() {
+  try {
+    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    if (isFs) {
+      if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    } else {
+      tryLandscapeFullscreen();
+    }
+  } catch (e) {}
+}
+
+window.addEventListener("pointerdown", () => {
+  if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      tryLandscapeFullscreen();
+    }
+  }
+}, { passive: true });
 
 function startFromMenu() {
   AudioFX.init();
@@ -2586,44 +3429,53 @@ function renderShop() {
   SKINS.forEach(skin => {
     const owned = Save.ownedSkins.includes(skin.id);
     const equipped = Save.equippedSkin === skin.id;
+    const isElite = skin.price >= 2000;
+    const sName = getSkinName(skin);
 
     const card = document.createElement("div");
-    card.className = "skin-card " + (equipped ? "equipped" : (owned ? "owned" : ""));
+    card.className = "skin-card " + (isElite ? "elite " : "") + (equipped ? "equipped" : (owned ? "owned" : ""));
+
+    if (isElite) {
+      const badge = document.createElement("span");
+      badge.className = "skin-tier";
+      badge.textContent = "★ ELITE";
+      card.appendChild(badge);
+    }
 
     const prevCanvas = document.createElement("canvas");
     prevCanvas.className = "skin-preview";
     prevCanvas.width = 56;
     prevCanvas.height = 68;
     const pctx = prevCanvas.getContext("2d");
-    drawHeroSprite(pctx, 8, 16, 1, 0, 0, skin, 1.65, true);
+    drawHeroSprite(pctx, 8, 16, 1, 0, 0, skin, 1.65, true, false);
 
     const nameEl = document.createElement("div");
     nameEl.className = "skin-name";
-    nameEl.textContent = skin.name;
+    nameEl.textContent = sName;
 
     const btn = document.createElement("button");
     btn.type = "button";
     if (equipped) {
       btn.className = "skin-btn active";
-      btn.textContent = "✓ SEÇİLİB";
+      btn.textContent = tr("equippedBtn");
     } else if (owned) {
       btn.className = "skin-btn equip";
-      btn.textContent = "SEÇ";
+      btn.textContent = tr("equipBtn");
       btn.onclick = () => {
         Save.equippedSkin = skin.id;
         writeSave();
         AudioFX.click();
-        showShopMsg(`"${skin.name}" geyimi seçildi!`, "#4ade80");
+        showShopMsg(tr("msgEquipped", sName), "#4ade80");
         renderShop();
       };
     } else {
       const canBuy = Save.coins >= skin.price;
-      btn.className = "skin-btn buy" + (canBuy ? "" : " cant");
-      btn.textContent = `${skin.price} 🪙 AL`;
+      btn.className = "skin-btn buy" + (isElite ? " elite-buy" : "") + (canBuy ? "" : " cant");
+      btn.textContent = tr("buyBtn", skin.price);
       btn.onclick = () => {
         if (Save.coins < skin.price) {
           AudioFX.wrong();
-          showShopMsg(`Kifayət qədər qızıl yoxdur! (${skin.price} 🪙 lazımdır)`, "#fca5a5");
+          showShopMsg(tr("msgNoCoins", skin.price), "#fca5a5");
           return;
         }
         Save.coins -= skin.price;
@@ -2631,7 +3483,7 @@ function renderShop() {
         Save.equippedSkin = skin.id;
         writeSave();
         AudioFX.buy();
-        showShopMsg(`🎉 "${skin.name}" alındı və seçildi!`, "#4ade80");
+        showShopMsg(tr("msgBought", sName), "#4ade80");
         renderShop();
       };
     }
@@ -2664,10 +3516,11 @@ function renderLevelSelect() {
   tabsEl.innerHTML = "";
   gridEl.innerHTML = "";
 
+  const worldNames = (I18N[Save.lang] || I18N.az).worlds;
   WORLDS.forEach((w, i) => {
     const b = document.createElement("button");
     b.className = "world-tab" + (i === selectedWorldTab ? " active" : "");
-    b.textContent = `${w.name} (${i * 10 + 1}-${i * 10 + 10})`;
+    b.textContent = `${worldNames[i]} (${i * 10 + 1}-${i * 10 + 10})`;
     b.onclick = () => { selectedWorldTab = i; renderLevelSelect(); };
     tabsEl.appendChild(b);
   });
@@ -2682,7 +3535,7 @@ function renderLevelSelect() {
     card.className = "lvl-card " + (done ? "done" : (unlocked ? "unlocked" : "locked")) + (isBoss ? " boss" : "");
     card.innerHTML = `
       <div class="lvl-num">${done ? "★ " : ""}${lv.level}${isBoss ? " ⚡" : ""}</div>
-      <div class="lvl-topic">${unlocked ? lv.topic : "🔒 Bağlı"}</div>
+      <div class="lvl-topic">${unlocked ? trDynamic(lv.topic) : tr("lockedLbl")}</div>
     `;
     if (unlocked) {
       card.onclick = () => {
@@ -2750,7 +3603,7 @@ bindTouchBtn("btnAction", () => {
 }, () => {});
 
 /* ==========================================================================
-   10. FIXED-TIMESTEP 60 FPS MAIN LOOP
+   11. FIXED-TIMESTEP 60 FPS MAIN LOOP
    ========================================================================== */
 let lastTime = performance.now();
 let accumulator = 0;
